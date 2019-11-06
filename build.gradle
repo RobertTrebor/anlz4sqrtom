@@ -1,0 +1,47 @@
+apply plugin: 'war'
+apply plugin: 'maven'
+apply plugin: 'eclipse-wtp'
+
+group = 'de.lengsfeld'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    providedCompile 'javax:javaee-api:8.0'
+    compile 'org.webjars:bootstrap:3.3.5'
+    compile 'org.webjars:jquery:2.1.4'
+    compile 'org.primefaces:primefaces:6.2'
+    compile 'com.github.scribejava:scribejava-apis:6.9.0'
+    compile 'org.liquibase:liquibase-core:3.5.3'
+    compile 'org.jdom:jdom2:2.0.6'
+    compile 'org.json:json:20190722'
+    compile 'com.google.appengine:appengine-api-1.0-sdk:1.9.76'
+    providedCompile 'org.hibernate:hibernate-core:5.2.2.Final'
+    providedCompile 'mysql:mysql-connector-java:8.0.17'
+    providedCompile 'org.projectlombok:lombok:1.18.6'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.10.0'
+}
+
+test {
+    // Only run unit-tests. E.g. don't run integration-tests with suffix 'IT'
+    include '**/*Test.class'
+}
+
+war {
+	archiveName 'anlz4sqrtom.war'
+}
+
+task deployWar(type: Copy, dependsOn: 'war') {
+    group 'build'
+    description 'Copy the artifact to $DEPLOY_TO'
+    dependsOn 'build'
+    from war.archivePath
+    into "${System.env.DEPLOY_TO}"
+}

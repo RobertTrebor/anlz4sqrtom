@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
+<h:body>
+
+
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" size="220">
+			<p:growl id="messages" showDetail="true" life="2000" />
+
+
+
+			<p:ajaxStatus
+				style="width:64px;height:64px;position:fixed;top:5px;left:5px">
+				<f:facet name="start">
+					<p:graphicImage library="img" name="ajax-loader.gif" />
+				</f:facet>
+
+				<f:facet name="complete">
+					<h:outputText value="" />
+				</f:facet>
+			</p:ajaxStatus>
+			<!-- <p:panel id="coordinates"> -->
+
+			<!--</p:panel> -->
+		</p:layoutUnit>
+
+		<p:layoutUnit id="left" position="west" size="300" resizable="true"
+			closable="true" collapsible="true" header="Options" minSize="200">
+			<p:accordionPanel>
+				<p:tab title="Categories">
+					<h:form id="treeForm">
+						<p:tree id="tree" value="#{categoriesController.root}" var="node"
+							selectionMode="single"
+							selection="#{categoriesController.selectedNode}">
+							<p:ajax event="select" update=":coordinates"></p:ajax>
+							<p:ajax event="select" update=":venuetable"
+								listener="#{basicBean.loadResult}" />
+							<p:treeNode id="treeNode">
+								<h:outputText value="#{node}" id="lblNode" />
+							</p:treeNode>
+						</p:tree>
+					</h:form>
+				</p:tab>
+
+				<p:tab title="Menu 2">
+					<h:outputText value="Menu 2 Content" />
+				</p:tab>
+
+				<p:tab title="Menu 3">
+					<h:outputText value="Menu 3 Content" />
+				</p:tab>
+			</p:accordionPanel>
+
+		</p:layoutUnit>
+		<p:layoutUnit position="east" size="100">
+			<p:commandButton actionListener="#{basicBean.loadResult}"
+				value="Update" update=":venuetable" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" size="50">
+			<h:form id="coordinates">
+				<h:outputLabel value="Latitude: "></h:outputLabel>
+				<h:inputText value="#{mapBean.latitude}"></h:inputText>
+				<h:outputLabel value="Longitude: "></h:outputLabel>
+				<h:inputText value="#{mapBean.longitude}"></h:inputText>
+				<h:outputText value="Query: "></h:outputText>
+				<h:inputText value="#{form.query}"></h:inputText>
+				<h:outputText value="Category: "></h:outputText>
+				<h:inputText value="#{categoriesController.categoryName}"></h:inputText>
+			</h:form>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<p:panel id="venuetable">
+				<h:form id="form">
+					<p:dataTable var="venue" value="#{basicBean.venues}"
+						resizableColumns="true" rowKey="#{venue.name}" paginator="true"
+						rows="20" selection="#{basicBean.selectedVenue}"
+						selectionMode="single">
+
+						<p:ajax event="rowSelect" update=":form:display"
+							oncomplete="venueDialog.show()" />
+
+						<f:facet name="header">Venue List</f:facet>
+
+						<p:column headerText="Name" sortBy="name" id="name">  
+            				#{venue.name}  
+        				</p:column>
+
+						<p:column headerText="Address" id="address">  
+            				#{venue.location.address}  
+        				</p:column>
+
+						<p:column headerText="City" id="city">  
+            				#{venue.location.city}  
+        				</p:column>
+					</p:dataTable>
+
+					<p:dialog header="Venue Details" widgetVar="venueDialog"
+						resizable="true" width="400" showEffect="explode"
+						hideEffect="explode">
+
+						<h:panelGrid id="display" columns="2" cellpadding="4">
+
+							<f:facet name="header">
+								<!--<p:graphicImage value="/images/cars/#{tableBean.selectedCar.manufacturer}.jpg"/> -->
+							</f:facet>
+							<p:tabView id="tabView">
+
+								<p:tab id="tab1" title="Address Data">
+									<h:panelGrid columns="2" cellpadding="6">
+										<!--  <p:graphicImage id="tab1Img" value="/images/godfather/godfather1.jpg" />  -->
+
+											<h:outputText value="" />
+											<h:outputText value="Name:" />
+											<h:outputText value="#{basicBean.selectedVenue.name}"
+												id="name" />
+										<h:outputText value="Address:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.address}"
+											id="address" />
+
+										<h:outputText value="Zip:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.postalCode}"
+											id="postalCode" />
+
+										<h:outputText value="City:" />
+										<h:outputText value="#{basicBean.selectedVenue.location.city}"
+											id="city" />
+
+										<h:outputText value="Country:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.country}" />
+
+										<h:outputText value="Cross-Street: " />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.crossStreet}" />
+
+									</h:panelGrid>
+								</p:tab>
+								<p:tab id="tab2" title="Statistics">
+									<h:panelGrid columns="2" cellpadding="6">
+										<!--  <p:graphicImage id="tab1Img" value="/images/godfather/godfather1.jpg" />  -->
+										<h:outputText value="" />
+										<h:outputText value="Name:" />
+										<h:outputText value="#{basicBean.selectedVenue.name}" />
+
+										<h:outputText value="Checked in:" />
+										<h:outputText value="#{basicBean.selectedVenue.hereNow.count}" />
+
+										<h:outputText value="Total Checkins:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.stats.checkinsCount}" />
+
+										<h:outputText value="Users:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.stats.usersCount}" />
+
+										<h:outputText value="Country:" />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.country}" />
+
+										<h:outputText value="Cross-Street: " />
+										<h:outputText
+											value="#{basicBean.selectedVenue.location.crossStreet}" />
+
+									</h:panelGrid>
+								</p:tab>
+								<p:tab id="tab3" title="Geo Data">
+									<h:panelGrid columns="2" cellpadding="6">
+										<!--  <p:graphicImage id="tab1Img" value="/images/godfather/godfather1.jpg" />  -->
+										<h:outputText value="" />
+										<h:outputText value="Name:" />
+										<h:outputText value="#{basicBean.selectedVenue.name}" />
+										<h:outputText value="Latitude:" />
+										<h:outputText value="#{basicBean.selectedVenue.location.lat}" />
+										<h:outputText value="Latitude:" />
+										<h:outputText value="#{basicBean.selectedVenue.location.lng}" />
+									</h:panelGrid>
+								</p:tab>
+							</p:tabView>
+
+						</h:panelGrid>
+					</p:dialog>
+				</h:form>
+			</p:panel>
+		</p:layoutUnit>
+	</p:layout>
+</h:body>
+</html>
