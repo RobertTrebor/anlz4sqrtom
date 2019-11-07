@@ -119,7 +119,7 @@
 			<Host name="localhost" appBase="webapps" unpackWARs="true"
 				autoDeploy="false" deployOnStartup="false">
 
-				<Context path="" docBase="heroku-javaee-starter.war"></Context>
+				<Context path="" docBase="anlz4sqrtom.war"></Context>
 
 				<Valve className="org.apache.catalina.valves.AccessLogValve"
 					directory="logs" prefix="localhost_access_log" suffix=".txt"
