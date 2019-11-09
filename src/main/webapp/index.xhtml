@@ -54,9 +54,9 @@
 			</h:form>
 			<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
 			<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
-			<p:commandButton action="#{basicBean.save()}" value="Save" update="venuetable" />
-			<p:commandButton action="#{basicBean.loadFromDb()}" value="Load" update="venuetable" />
-			<p:commandButton action="#{basicBean.loadCheckins()}" value="More" update="venuetable" />
+			<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
+			<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
+			<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center" >

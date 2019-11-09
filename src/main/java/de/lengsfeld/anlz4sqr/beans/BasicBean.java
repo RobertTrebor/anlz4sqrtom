@@ -3,7 +3,10 @@ package de.lengsfeld.anlz4sqr.beans;
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
 import de.lengsfeld.anlz4sqr.connect.FSConnector;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
+import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
+import fi.foyt.foursquare.api.entities.Checkin;
+import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 
 import javax.enterprise.context.RequestScoped;
@@ -14,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Named
@@ -77,6 +82,17 @@ public class BasicBean implements Serializable {
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
 		}
 	}
+
+	public void loadHistory(){
+		form.setView(1);
+		Result<VenueHistoryGroup> result = fsManager.venueHistory();
+		if(result != null) {
+			VenueHistoryGroup venueHistoryGroup = result.getResult();
+			venueHistoryGroup.getCount();
+			form.setVenueHistories(Arrays.asList(venueHistoryGroup.getItems()));
+		}
+	}
+
 	public void update(){
 		int view = form.getView();
 		switch(view){
@@ -84,15 +100,51 @@ public class BasicBean implements Serializable {
 				loadResult();
 				break;
 			case 1:
-				//loadHistory();
+				loadHistory();
 				break;
 			case 2:
 				//loadFromDb();
 				break;
 			case 3:
-				//loadCheckins();
+				loadCheckins();
 				break;
 		}
+	}
+
+
+	public void loadCheckins(){
+		form.setView(3);
+		List<Checkin> checkins = fsManager.checkinHistory();
+		List<String> checkinsWithComments = new ArrayList<>();
+		for(Checkin checkin : checkins){
+			Long l = checkin.getCreatedAt();
+			String name = checkin.getVenue().getName();
+			if(checkin.getComments() != null && checkin.getComments().getCount() != null && checkin.getComments().getCount() > 0) {
+				checkinsWithComments.add(checkin.getId());
+			}
+		}
+		form.setCheckins(checkins);
+		if(!checkinsWithComments.isEmpty()) {
+			String comments = "";
+			for (String id : checkinsWithComments) {
+				try {
+					comments += fsManager.retrieveComments(id);
+				} catch (FoursquareApiException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
+	public String retrieveComment(){
+		String comments = "";
+		try {
+			comments = fsManager.retrieveComments(form.getSelectedCheckin().getId());
+			form.setSelectedComment(comments);
+		} catch (FoursquareApiException e) {
+			e.printStackTrace();
+		}
+		return comments;
 	}
 
 }
