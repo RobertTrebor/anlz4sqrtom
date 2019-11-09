@@ -3,7 +3,7 @@ set -e
 
 if [ -f ./gradlew ]; then
 	./gradlew build
-elsegit
+else
 	./mvnw package
 fi
 
