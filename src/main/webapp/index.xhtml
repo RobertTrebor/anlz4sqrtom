@@ -11,16 +11,22 @@
 
 <f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
 <h:body>
-	<p:layout fullPage="true">
-		<p:layoutUnit position="north" size="400">
-			<h:outputText value="Top content." />
-			<h:outputText value="#{form.selectedComment}"/>
-		</p:layoutUnit>
+	<h:form>
+		<p:layout fullPage="true">
+			<p:layoutUnit position="north" size="400">
+				<p:panel>
+					<h:outputText value="Top content." />
+					<h:outputText value="#{form.selectedComment}"/>
+					<p:outputLabel value="#{form.selectedComment}"/>
+				</p:panel>
+			</p:layoutUnit>
 
-		<p:layoutUnit position="south" size="100">
-			<h:outputText value="Bottom content." />
-		</p:layoutUnit>
-	</p:layout>
-
+			<p:layoutUnit position="south" size="100">
+				<h:outputText value="Bottom content." />
+				<h:outputText value="#{form.selectedComment}"/>
+				<p:outputLabel value="#{form.selectedComment}"/>
+			</p:layoutUnit>
+		</p:layout>
+	</h:form>
 </h:body>
 </html>
