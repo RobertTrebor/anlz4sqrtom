@@ -114,7 +114,7 @@ public class BasicBean implements Serializable {
 
 	public void loadCheckins(){
 		form.setView(3);
-		List<Checkin> checkins = fsManager.checkinHistory();
+		List<Checkin> checkins = fsManager.checkinHistory(form.getNumCheckins());
 		List<String> checkinsWithComments = new ArrayList<>();
 		for(Checkin checkin : checkins){
 			Long l = checkin.getCreatedAt();

@@ -23,6 +23,7 @@ public class Form implements Serializable {
 	private List<VenueHistory> venueHistories;
 	//private List<de.lengsfeld.anlz4sqr.entity.VenueHistory> venueHistoriesDb;
 	private List<Checkin> checkins;
+	private Integer numCheckins = 10;
 	private CompactVenue selectedVenue;
 	private VenueHistory selectedHistory;
 	private Checkin selectedCheckin;

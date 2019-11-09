@@ -109,10 +109,10 @@ public final class FSManager {
 		return result;
 	}
 
-	public List<Checkin> checkinHistory(){
+	public List<Checkin> checkinHistory(int limit){
 		List<Checkin> list = null;
 		try {
-			Result<CheckinGroup> result = foursquareApi.usersCheckins("self", 10, 0,0L, new Date().getTime());
+			Result<CheckinGroup> result = foursquareApi.usersCheckins("self", limit, 0,0L, new Date().getTime());
 			list = Arrays.asList(result.getResult().getItems());
 		} catch (FoursquareApiException e) {
 			e.printStackTrace();
