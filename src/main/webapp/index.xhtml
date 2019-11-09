@@ -50,14 +50,14 @@
 		<p:layoutUnit position="east" size="200">
 			<h:outputText value="Right Content" />
 			<h:form>
-			<h:commandLink action="#{basicBean.connect()}" value="connect" />
+				<h:commandLink action="#{basicBean.connect()}" value="connect" />
+				<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
+				<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
+				<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
+				<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
+				<p:inputNumber value="#{form.numCheckins}" />
+				<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
 			</h:form>
-			<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
-			<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
-			<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
-			<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
-			<p:inputNumber value="#{form.numCheckins}" />
-			<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
 		</p:layoutUnit>
 
 		<p:layoutUnit position="center" >
