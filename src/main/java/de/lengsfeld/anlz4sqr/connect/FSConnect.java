@@ -13,9 +13,13 @@ import java.util.concurrent.ExecutionException;
 
 public class FSConnect implements FSConnector {
 
-	private final String ID = ConnectProp.get("id");
-	private final String SECRET = ConnectProp.get("secret");
-	private final String CALLBACK = ConnectProp.get("callback");
+	//private final String ID = ConnectProp.get("id");
+	//private final String SECRET = ConnectProp.get("secret");
+	//private final String CALLBACK = ConnectProp.get("callback");
+
+	private final String ID = System.getenv("ID");
+	private final String SECRET = System.getenv("SECRET");
+	private final String CALLBACK = System.getenv("CALLBACK");
 
 	private OAuth20Service service;
 

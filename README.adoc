@@ -28,3 +28,4 @@ $ heroku open
 
 By default, the `heroku.yml` deploy to TomEE. Reference `Docker.liberty` to change the application-server to OpenLiberty.
 
+git update-index --chmod=+x gradlew
