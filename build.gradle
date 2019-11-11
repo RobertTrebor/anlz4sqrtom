@@ -17,9 +17,9 @@ dependencies {
     //compile group: 'org.apache.tomee', name: 'tomee-embedded', version: '8.0.0'
     //compile group: 'org.apache.tomee.gradle', name: 'tomee-embedded', version: '8.0.0'
 
-    compile 'org.webjars:bootstrap:3.3.5'
+    //compile 'org.webjars:bootstrap:3.3.5'
     compile 'org.webjars:jquery:2.1.4'
-    compile 'org.primefaces:primefaces:6.2'
+    compile 'org.primefaces:primefaces:7.0'
     compile 'com.github.scribejava:scribejava-apis:6.9.0'
     compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'org.jdom:jdom2:2.0.6'
@@ -39,6 +39,11 @@ test {
 
 war {
 	archiveName 'anlz4sqrtom.war'
+}
+
+task explodedWar(type: Sync, dependsOn: 'war') {
+    into "${buildDir}/libs/exploded"
+    with war
 }
 
 task deployWar(type: Copy, dependsOn: 'war') {
