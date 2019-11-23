@@ -28,7 +28,7 @@
 				<p:column />
 			</p:panelGrid>
 			<p:panelGrid columns="8" columnClasses="ui-g-4 ui-md-1" styleClass="ui-fluid" layout="grid">
-				<p:commandButton action="#{basicBean.connect()}" value="Connect" />
+				<p:commandButton action="#{basicBean.connect()}" ajax="false" value="Connect" />
 				<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
 				<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
 				<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
