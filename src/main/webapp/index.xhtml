@@ -15,14 +15,16 @@
 	<div class="ui-fluid">
 		<h:form id="coordinatesform">
 			<p:panelGrid columns="8" columnClasses="ui-g-4 ui-md-1" styleClass="ui-fluid" layout="grid">
-				<h:outputLabel value="Latitude: "></h:outputLabel>
-				<h:inputText value="#{mapBean.latitude}"></h:inputText>
+				<p:outputLabel value="Latitude: "></p:outputLabel>
+				<p:inputText id="latitude" value="#{mapBean.latitude}" valueChangeListener="#{basicBean.update()}">
+					<f:ajax event="change" listener="#{basicBean.update()}"/>
+				</p:inputText>
 				<h:outputLabel value="Longitude: "></h:outputLabel>
 				<h:inputText value="#{mapBean.longitude}"></h:inputText>
 				<h:outputText value="Query: "></h:outputText>
 				<h:inputText value="#{form.query}"></h:inputText>
 
-				<p:commandButton actionListener="#{basicBean.update()}" value="View Venues" update=":venuetable" />
+				<p:commandButton actionListener="#{basicBean.switchView(0)}" value="View Venues" oncomplete="updateRC();" />
 				<p:column />
 			</p:panelGrid>
 			<p:panelGrid columns="8" columnClasses="ui-g-4 ui-md-1" styleClass="ui-fluid" layout="grid">
@@ -33,6 +35,7 @@
 				<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
 				<p:inputNumber value="#{form.numCheckins}" />
 				<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
+                <p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
 			</p:panelGrid>
 		</h:form>
 		<h:form>
@@ -41,7 +44,7 @@
 				<p:gmap center="#{mapBean.coordinates}" zoom="15" type="HYBRID"
 						style="width:800px;height:300px" model="#{mapBean.model}">
 					<p:ajax event="stateChange" listener="#{mapBean.onStateChange}" update="messages" />
-					<p:ajax event="pointSelect" listener="#{mapBean.onPointSelect}" update="messages coordinatesform venuetable" />
+					<p:ajax event="pointSelect" listener="#{mapBean.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
 				</p:gmap>
 			</p:fieldset>
 		</h:form>
@@ -52,7 +55,7 @@
 				<h:form>
 					<p:tree id="tree" value="#{categoriesController.root}" var="node"
 					selectionMode="single" selection="#{categoriesController.selectedNode}">
-						<p:ajax event="select" listener="#{categoriesController.onNodeSelect}" update=":venuetable" />
+						<p:ajax event="select" listener="#{categoriesController.onNodeSelect}" oncomplete="updateRC();" />
 						<p:treeNode id="treeNode">
 							<h:outputText value="#{node}" id="lblNode" />
 						</p:treeNode>
@@ -234,6 +237,7 @@
 		</f:facet>
 	</p:ajaxStatus>
 
+	<p:remoteCommand name="updateRC" actionListener="#{basicBean.update()}" update="venuetable"/>
 
 </h:body>
 </html>

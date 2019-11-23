@@ -71,7 +71,7 @@ public class BasicBean implements Serializable {
 	public void loadResult() {
 		if(form.getView() == 0) {
 			form.setCategory(categoriesController.getCategoryId());
-			if (form.getCategory() == "0000") {
+			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
 			System.out.print("BasicBean.java - category: " + form.getCategory());
@@ -88,9 +88,12 @@ public class BasicBean implements Serializable {
 		Result<VenueHistoryGroup> result = fsManager.venueHistory();
 		if(result != null) {
 			VenueHistoryGroup venueHistoryGroup = result.getResult();
-			venueHistoryGroup.getCount();
 			form.setVenueHistories(Arrays.asList(venueHistoryGroup.getItems()));
 		}
+	}
+
+	public void switchView(Integer view){
+		form.setView(view);
 	}
 
 	public void update(){
@@ -111,30 +114,35 @@ public class BasicBean implements Serializable {
 		}
 	}
 
-
 	public void loadCheckins(){
 		form.setView(3);
 		List<Checkin> checkins = fsManager.checkinHistory(form.getNumCheckins());
-		List<String> checkinsWithComments = new ArrayList<>();
-		for(Checkin checkin : checkins){
+        form.setCheckins(checkins);
+	}
+
+	public void loadCheckinsWithComments(){
+		loadCheckins();
+		List<Checkin> checkinsWithComments = new ArrayList<>();
+		for(Checkin checkin : form.getCheckins()){
 			Long l = checkin.getCreatedAt();
 			String name = checkin.getVenue().getName();
 			if(checkin.getComments() != null && checkin.getComments().getCount() != null && checkin.getComments().getCount() > 0) {
-				checkinsWithComments.add(checkin.getId());
+				checkinsWithComments.add(checkin);
 			}
 		}
-		form.setCheckins(checkins);
+		form.setCheckins(checkinsWithComments);
 		if(!checkinsWithComments.isEmpty()) {
 			String comments = "";
-			for (String id : checkinsWithComments) {
+			for (Checkin checkin : checkinsWithComments) {
 				try {
-					comments += fsManager.retrieveComments(id);
+					comments += fsManager.retrieveComments(checkin.getId());
 				} catch (FoursquareApiException e) {
 					e.printStackTrace();
 				}
 			}
+			form.setConcatenatedComments(comments);
 		}
-	}
+    }
 
 	public String retrieveComment(){
 		String comments = "";

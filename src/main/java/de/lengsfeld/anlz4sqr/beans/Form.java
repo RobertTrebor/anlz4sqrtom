@@ -28,6 +28,7 @@ public class Form implements Serializable {
 	private VenueHistory selectedHistory;
 	private Checkin selectedCheckin;
 	private String selectedComment;
+	private String concatenatedComments;
 	private Integer view = 0;
 
 	private String coordinates;
