@@ -17,7 +17,7 @@
         <link rel="icon" href="#{resource['favicon.ico']}" />
         <link rel="shortcut icon" href="#{resource['img/favicon.ico']}"/>
         <!-- Bootstrap core CSS -->
-        <h:outputStylesheet library="webjars" name="bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <h:outputStylesheet library="webjars" name="bootstrap/4.3.1/css/bootstrap.min.css"/>
 
         <!-- Custom styles for this template -->
         <h:outputStylesheet name="css/style.css"/>
@@ -29,40 +29,28 @@
 
     <h:body>
         <div id="wrap">   <!-- to enable sticky footer  -->
-            <div class="navbar navbar-inverse">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <h:link class="navbar-brand rlindent" outcome="/main" value="Anlz4sqr">
-                        </h:link>
-
-                    </div>
-                    <div class="navbar-collapse collapse">
-                        <div class="row">
-
-                            <ul class="nav navbar-nav">
-                                <li>
-                                    <h:link outcome="/views/cemeteryList" value="View all cemeteries"></h:link>
-                                </li>
-                                <li>
-                                    <h:link outcome="/views/cemeteryPicList" value="CemeteryPics"></h:link>
-                                </li>
-                                <li>
-                                    <h:link outcome="/views/ejbTest" value="Tests"></h:link>
-                                </li>
-                                <li>
-                                    <h:link outcome="/main" value="About"></h:link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+                <a class="navbar-brand" style="color:blueviolet" >Anlz4sqr</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/views/cemeteryList" value="View all cemeteries"></h:link>
+                        </li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/views/cemeteryPicList" value="CemeteryPics"></h:link>
+                        </li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/views/ejbTest" value="Tests"></h:link>
+                        </li>
+                        <li class="nav-item">
+                            <h:link class="nav-link" outcome="/main" value="About"></h:link>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-
+            </nav>
 
             <!-- Begin page content -->
             <div class="container">
@@ -71,42 +59,19 @@
                     <h:messages globalOnly="true" errorClass="alert alert-error" warnClass="alert"
                                 infoClass="alert alert-info"/>
                 </div>
-
-
                 <!-- CONTENT -->
                 <ui:insert name="main"/>
-                <div class="col-md-1"/>
-                <div class="col-md-9 well">
-                    <!--
-                    <h2><ui:insert name="header"/></h2>
-                    <h3><ui:insert name="subheader"/></h3>
-                    -->
-                </div>
-                <!--/.CONTENT -->
-
             </div>
 
             <div id="footer">
-                <div class="container">
-                    <div class="col-md-2 centered-text">
-                        <a href="https://github.com/">Source code on GitHub</a>
-                        <br/>
-                        <a href="http://www.lengsfeld.de">Robert Lengsfeld</a>
-                    </div>
-                    <div class="col-md-8"/>
-                    <div class="col-md-2 centered-text">
-                        <!--<h:link outcome="/debug" value="Debug"></h:link>-->
-                        <br/>
-                    </div>
-                </div>
             </div>
         </div>
 
         <!-- Bootstrap core JavaScript
        ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <h:outputScript library="webjars" name="jquery/2.1.4/jquery.min.js"/>
-        <h:outputScript library="webjars" name="bootstrap/3.3.5/js/bootstrap.min.js"/>
+        <!--<h:outputScript library="webjars" name="jquery/2.1.4/jquery.min.js"/>-->
+        <h:outputScript library="webjars" name="bootstrap/4.3.1/js/bootstrap.min.js"/>
         <!--
         <h:outputScript target="head">
             // Add the $() function
@@ -117,11 +82,7 @@
         </h:outputScript>-->
         <!-- Placed at the end of the document so the pages load faster-->
         <!--<h:outputScript target="body" name="js/maps.js" />-->
-        <h:outputScript target="body" name="js/main.js" />
-        <f:verbatim>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO3UV-0QrjHrqpxZa0JpcvFrxZRUweGuU&amp;">
-            </script>
-        </f:verbatim>
+
     </h:body>
 </f:view>
 </html>

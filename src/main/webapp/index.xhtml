@@ -40,34 +40,9 @@
 						<p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
 					</p:panelGrid>
 				</h:form>
-				<h:form>
-					<p:fieldset legend="Map" toggleable="true">
-						<p:growl id="messages" showDetail="true" life="2000" />
-						<p:gmap center="#{mapBean.coordinates}" zoom="15" type="HYBRID"
-								style="width:800px;height:300px" model="#{mapBean.model}">
-							<p:ajax event="stateChange" listener="#{mapBean.onStateChange}" update="messages" />
-							<p:ajax event="pointSelect" listener="#{mapBean.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
-						</p:gmap>
-					</p:fieldset>
-				</h:form>
 
-				<p:panelGrid columnClasses="ui-g-12 ui-md-2, ui-g-12 ui-md-10" columns="2" styleClass="ui-fluid">
-					<p:panel>
-						<h:outputText value="Categories" />
-						<h:form>
-							<p:tree id="tree" value="#{categoriesController.root}" var="node"
-							selectionMode="single" selection="#{categoriesController.selectedNode}">
-								<p:ajax event="select" listener="#{categoriesController.onNodeSelect}" oncomplete="updateRC();" />
-								<p:treeNode id="treeNode">
-									<h:outputText value="#{node}" id="lblNode" />
-								</p:treeNode>
-							</p:tree>
-						</h:form>
-					</p:panel>
-
-					<p:panel id="venuetable">
-						<h:outputText value="Venue List" />
-
+				<p:panelGrid columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
+					<p:panel id="venuetable" header="Venue List">
 						<h:form id="venuetableform">
 							<p:dataTable var="venue" value="#{form.venues}" rendered="#{form.view == 0}"
 										 rowKey="#{venue.name}" paginator="true" rows="15"
@@ -227,6 +202,31 @@
 						</h:form>
 					</p:panel>
 			</p:panelGrid>
+
+				<p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
+					<h:form>
+						<p:fieldset legend="Map" toggleable="true">
+							<p:growl id="messages" showDetail="true" life="2000" />
+							<p:gmap center="#{mapBean.coordinates}" zoom="15" type="HYBRID"
+									style="width:480px;height:300px" model="#{mapBean.model}">
+								<p:ajax event="stateChange" listener="#{mapBean.onStateChange}" update="messages" />
+								<p:ajax event="pointSelect" listener="#{mapBean.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
+							</p:gmap>
+						</p:fieldset>
+					</h:form>
+
+					<p:fieldset legend="Categories" toggleable="true" collapsed="false" styleClass="ui-fluid">
+						<h:form>
+							<p:tree id="tree" value="#{categoriesController.root}" var="node"
+									selectionMode="single" selection="#{categoriesController.selectedNode}">
+								<p:ajax event="select" listener="#{categoriesController.onNodeSelect}" oncomplete="updateRC();" />
+								<p:treeNode id="treeNode">
+									<h:outputText value="#{node}" id="lblNode" />
+								</p:treeNode>
+							</p:tree>
+						</h:form>
+					</p:fieldset>
+				</p:panelGrid>
 			</div>
 			<p:ajaxStatus
 				style="width:64px;height:64px;position:fixed;top:5px;left:5px">

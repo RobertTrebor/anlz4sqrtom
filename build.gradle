@@ -17,7 +17,7 @@ dependencies {
     //compile group: 'org.apache.tomee', name: 'tomee-embedded', version: '8.0.0'
     //compile group: 'org.apache.tomee.gradle', name: 'tomee-embedded', version: '8.0.0'
 
-    compile 'org.webjars:bootstrap:3.3.5'
+    compile 'org.webjars:bootstrap:4.3.1'
     compile 'org.webjars:jquery:2.1.4'
     compile 'org.primefaces:primefaces:7.0'
     compile 'com.github.scribejava:scribejava-apis:6.9.0'
