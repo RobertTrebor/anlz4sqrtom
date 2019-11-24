@@ -15,6 +15,7 @@ public class FSConnectWeb implements FSConnector {
 	private final String ID = System.getenv("ID");
 	private final String SECRET = System.getenv("SECRET");
 	private final String CALLBACK = System.getenv("CALLBACK");
+	private boolean authenticated = false;
 
 	private OAuth20Service service;
 
@@ -51,6 +52,7 @@ public class FSConnectWeb implements FSConnector {
 			System.out.println("(The raw response looks like this: " + accessToken.getRawResponse() + "')");
 			System.out.println();
 			foursquareApi = new FoursquareApi(ID, SECRET, CALLBACK, token, new DefaultIOHandler());
+			authenticated = true;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
@@ -77,4 +79,8 @@ public class FSConnectWeb implements FSConnector {
 		return ID;
 	}
 
+	@Override
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
 }

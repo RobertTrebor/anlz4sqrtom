@@ -155,4 +155,8 @@ public class BasicBean implements Serializable {
 		return comments;
 	}
 
+	public boolean isAuthenticated(){
+	    return fsConnect.isAuthenticated();
+    }
+
 }

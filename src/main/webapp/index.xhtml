@@ -15,29 +15,21 @@
 		<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
 
 			<div class="ui-fluid">
-				<h:form id="coordinatesform">
-					<p:panelGrid columns="4" styleClass="ui-fluid" layout="grid">
-						<p:outputLabel for="latitude" value="Latitude: " styleClass="ui-fluid"/>
-						<p:inputText id="latitude" value="#{mapBean.latitude}" valueChangeListener="#{basicBean.update()}">
-							<f:ajax event="change" listener="#{basicBean.update()}"/>
-						</p:inputText>
-						<p:outputLabel for="longitude" value="Longitude: "/>
-						<p:inputText id="longitude" value="#{mapBean.longitude}"/>
-						<p:outputLabel for="query" value="Query: "/>
-						<p:inputText id="query" value="#{form.query}"/>
-
-						<p:commandButton actionListener="#{basicBean.switchView(0)}" value="View Venues" oncomplete="updateRC();" />
-						<p:column />
-					</p:panelGrid>
-					<p:panelGrid columns="8" styleClass="ui-fluid" layout="grid">
-						<p:commandButton action="#{basicBean.connect()}" ajax="false" value="Connect" />
-						<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
-						<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
-						<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
-						<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
-						<p:inputNumber value="#{form.numCheckins}" />
-						<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
-						<p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
+				<h:form>
+					<p:panelGrid columns="3" columnClasses="ui-g-12 ui-xl-4, ui-g-12 ui-xl-4, ui-g-12 ui-xl-4" layout="grid" rendered="#{basicBean.isAuthenticated()}">
+						<p:panelGrid>
+							<p:inputNumber value="#{form.numCheckins}" />
+							<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
+							<p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
+						</p:panelGrid>
+						<p:panelGrid>
+							<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
+							<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
+						</p:panelGrid>
+						<p:panelGrid>
+							<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
+							<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
+						</p:panelGrid>
 					</p:panelGrid>
 				</h:form>
 

@@ -6,4 +6,5 @@ public interface FSConnector {
     String authorize();
     String authorizeToken(String header);
     FoursquareApi getFoursquareApi();
+    boolean isAuthenticated();
 }
