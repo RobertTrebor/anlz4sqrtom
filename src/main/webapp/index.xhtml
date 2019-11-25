@@ -131,7 +131,7 @@
 								</p:column>
 							</p:dataTable>
                         </h:form>
-                        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true"
+                        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
 									  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
 									  hideEffect="explode" styleClass="ui-fluid">
 
@@ -154,8 +154,8 @@
 								</h:panelGrid>
 							</p:dialog>
 
-                        <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog"
-									  resizable="false" width="400" showEffect="explode"
+                        <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog" modal="true"
+									  resizable="false" width="400" showEffect="explode" responsive="true"
 									  hideEffect="explode" onHide="PF('checkinDialog').hide();">
 
 								<h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
