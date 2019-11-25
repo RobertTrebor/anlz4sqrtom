@@ -43,7 +43,7 @@
                         </li>
                     </ul>
                 </div>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -66,25 +66,19 @@
                     </ul>
                 </div>
             </nav>
-            </h:form>
-            <!-- Begin page content -->
-            <div class="container-fluid">
-                <div class="page-header">
-                    <!-- Error messages-->
-                    <h:messages globalOnly="true" errorClass="alert alert-error" warnClass="alert"
-                                infoClass="alert alert-info"/>
-                </div>
-                <!-- CONTENT -->
-                <ui:insert name="main"/>
-            </div>
+        </h:form>
 
-            <div id="footer"></div>
+        <div class="ui-fluid">
+            <ui:insert name="main"/>
+        </div>
+
+        <div id="footer"></div>
 
         <!-- Bootstrap core JavaScript
        ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
         <!--<h:outputScript library="webjars" name="jquery/3.4.1/jquery.min.js"/>-->
-        <!--<h:outputScript library="webjars" name="bootstrap/4.3.1/js/bootstrap.min.js"/>-->
+        <h:outputScript library="webjars" name="bootstrap/4.3.1/js/bootstrap.min.js"/>
         <!--
         <h:outputScript target="head">
             // Add the $() function
