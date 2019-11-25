@@ -134,10 +134,12 @@
 
 					</p:panel>
 			    </p:panelGrid>
-                <p:dialog header="Venue Details" widgetVar="venueDialog"
+                <p:dialog header="Venue Details" widgetVar="venueDialog" closable="false"
                           resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
                           hideEffect="explode" appendTo="@(body)">
-                    <p:ajax event="close" listener="#{basicBean.close()}"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="close" oncomplete="PF('venueDialog').hide();"/>
+                    </f:facet>
                     <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
                         <h:outputText value="Name:" />
                         <h:outputText value="#{form.selectedVenue.name}" id="name" />
