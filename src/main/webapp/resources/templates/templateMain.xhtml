@@ -22,15 +22,13 @@
 
         <!-- Custom styles for this template -->
         <h:outputStylesheet name="css/style.css"/>
-        <h:outputStylesheet name="css/sticky-footer-navbar.css"/>
         <h:outputStylesheet name="css/main.css"/>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGD--lZwMfq1NWVxtRSRH85Qu5vxUj-_M"
                 type="text/javascript"></script>
     </h:head>
 
     <h:body>
-        <div id="wrap">   <!-- to enable sticky footer  -->
-            <h:form id="coordinatesform">
+        <h:form id="coordinatesform">
             <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
                 <a class="navbar-brand" style="color:blueviolet" >Anlz4sqrJuppiiii</a>
                 <div class="navbar" id="navbar">
@@ -61,7 +59,6 @@
                             <p:outputLabel for="longitude" value="Longitude: " styleClass="nav-link"/>
                             <p:inputText id="longitude" value="#{mapBean.longitude}"/>
                         </li>
-
                         <li class="nav-item">
                             <p:outputLabel for="query" value="Query: " styleClass="nav-link"/>
                             <p:inputText id="query" value="#{form.query}"/>
@@ -81,9 +78,7 @@
                 <ui:insert name="main"/>
             </div>
 
-            <div id="footer">
-            </div>
-        </div>
+            <div id="footer"></div>
 
         <!-- Bootstrap core JavaScript
        ================================================== -->

@@ -11,7 +11,7 @@
 
 	<ui:define name="main">
 		<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
-			<div class="ui-fluid">
+			<div class="container-fluid ui-fluid">
 				<h:form>
 					<p:panelGrid columns="3" columnClasses="ui-g-12 ui-xl-4, ui-g-12 ui-xl-4, ui-g-12 ui-xl-4" layout="grid" rendered="#{basicBean.isAuthenticated()}">
 						<p:panelGrid>
@@ -44,8 +44,7 @@
 									#{venue.name}
 								</p:column>
 
-								<p:column headerText="Address" sortBy="address" sortable="true" filterBy="address"
-										  id="titleaddress">
+								<p:column headerText="Address" sortBy="address" sortable="true" filterBy="address" id="titleaddress">
 									#{venue.location.address}
 								</p:column>
 
@@ -161,7 +160,9 @@
                 <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog" appendTo="@(body)"
                           resizable="false" width="400" showEffect="explode"
                           hideEffect="explode" onHide="PF('checkinDialog').hide();">
-
+					<f:facet name="footer">
+						<p:commandButton value="close" oncomplete="PF('venueDialog').hide();"/>
+					</f:facet>
                     <h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
 
                         <h:outputText value="ID:" />
