@@ -10,10 +10,7 @@
 	  template="/resources/templates/templateMain.xhtml">
 
 	<ui:define name="main">
-
-
 		<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
-
 			<div class="ui-fluid">
 				<h:form>
 					<p:panelGrid columns="3" columnClasses="ui-g-12 ui-xl-4, ui-g-12 ui-xl-4, ui-g-12 ui-xl-4" layout="grid" rendered="#{basicBean.isAuthenticated()}">
@@ -40,7 +37,7 @@
 										 rowKey="#{venue.name}" paginator="true" rows="15"
 										 selection="#{form.selectedVenue}" selectionMode="single">
 
-								<p:ajax event="rowSelect" update=":venuetableform:display"
+								<p:ajax event="rowSelect" update="display"
 										oncomplete="PF('venueDialog').show();" />
 
 								<p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">
@@ -107,7 +104,7 @@
 										 selectionMode="single" selection="#{form.selectedCheckin}"
 										 rowKey="#{checkins.id}" paginator="true" rows="15">
 
-								<p:ajax event="rowSelect" update=":venuetableform:checkingDlg" listener="#{basicBean.retrieveComment()}"
+								<p:ajax event="rowSelect" update="checkingDlg" listener="#{basicBean.retrieveComment()}"
 										oncomplete="PF('checkinDialog').show();" />
 
 								<p:column headerText="Id" sortable="true" sortBy="#{checkins.id}"
@@ -133,31 +130,23 @@
 									#{checkins.venue.location.city}
 								</p:column>
 							</p:dataTable>
-
-							<p:dialog header="Venue Details" widgetVar="venueDialog"
+                        </h:form>
+                        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true"
 									  resizable="false" width="400" showEffect="explode"
-									  hideEffect="explode">
+									  hideEffect="explode" styleClass="ui-fluid">
 
-								<h:panelGrid id="display" columns="2" cellpadding="4">
-
-									<f:facet name="header">
-									</f:facet>
-
+								<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
 									<h:outputText value="Name:" />
 									<h:outputText value="#{form.selectedVenue.name}" id="name" />
 
 									<h:outputText value="Address:" />
-									<h:outputText value="#{form.selectedVenue.location.address}"
-												  id="address" />
+									<h:outputText value="#{form.selectedVenue.location.address}" id="address" />
 
 									<h:outputText value="Zip:" />
-									<h:outputText
-											value="#{form.selectedVenue.location.postalCode}"
-											id="postalCode" />
+									<h:outputText value="#{form.selectedVenue.location.postalCode}" id="postalCode" />
 
 									<h:outputText value="City:" />
-									<h:outputText value="#{form.selectedVenue.location.city}"
-												  id="city" />
+									<h:outputText value="#{form.selectedVenue.location.city}" id="city" />
 
 									<h:outputText value="Id:" />
 									<h:outputText value="#{form.selectedVenue.id}"/>
@@ -165,7 +154,7 @@
 								</h:panelGrid>
 							</p:dialog>
 
-							<p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog"
+                        <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog"
 									  resizable="false" width="400" showEffect="explode"
 									  hideEffect="explode">
 
@@ -191,11 +180,11 @@
 
 								</h:panelGrid>
 							</p:dialog>
-						</h:form>
-					</p:panel>
-			</p:panelGrid>
 
-				<p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
+					</p:panel>
+			    </p:panelGrid>
+
+                <p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
 					<h:form>
 						<p:fieldset legend="Map" toggleable="true">
 							<p:growl id="messages" showDetail="true" life="2000" />
