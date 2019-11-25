@@ -11,7 +11,7 @@
 
 	<ui:define name="main">
 		<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
-			<div class="container-fluid ui-fluid">
+			<div class="container-fluid">
 				<h:form>
 					<p:panelGrid columns="3" columnClasses="ui-g-12 ui-xl-4, ui-g-12 ui-xl-4, ui-g-12 ui-xl-4" layout="grid" rendered="#{basicBean.isAuthenticated()}">
 						<p:panelGrid>
@@ -30,8 +30,8 @@
 					</p:panelGrid>
 				</h:form>
 
-				<p:panelGrid columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
-					<p:panel id="venuetable" header="Venue List">
+				<p:panelGrid id="venuetable" columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
+                    <f:facet name="header">Venue List</f:facet>
 						<h:form id="venuetableform">
 							<p:dataTable var="venue" value="#{form.venues}" rendered="#{form.view == 0}"
 										 rowKey="#{venue.name}" paginator="true" rows="15"
@@ -130,8 +130,6 @@
 								</p:column>
 							</p:dataTable>
                         </h:form>
-
-					</p:panel>
 			    </p:panelGrid>
                 <p:dialog header="Venue Details" widgetVar="venueDialog" closable="false"
                           resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
