@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<f:view contentType="text/html" encoding="UTF-8">
+	<h:head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<!--<title>#{empty pageTitle ? 'Page Title' : pageTitle}</title>-->
+		<link rel="icon" href="#{resource['favicon.ico']}" />
+		<link rel="shortcut icon" href="#{resource['img/favicon.ico']}"/>
+		<!-- Bootstrap core CSS -->
+		<h:outputStylesheet library="webjars" name="bootstrap/4.3.1/css/bootstrap.min.css"/>
+
+		<!-- Custom styles for this template -->
+
+	</h:head>
+
+	<h:body>
+
+		<div class="ui-fluid">
+			<p:panelGrid columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
+				<p:panel id="venuetable" header="Venue List">
+					<h:form id="venuetableform">
+						<p:commandButton update="display" oncomplete="PF('venueDialog').show();"/>
+					</h:form>
+					<p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
+								  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
+								  hideEffect="explode" styleClass="ui-fluid">
+						<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
+							<h:outputText value="Name:" />
+							<h:outputText value="Text" />
+						</h:panelGrid>
+					</p:dialog>
+				</p:panel>
+			</p:panelGrid>
+		</div>
+	</h:body>
+</f:view>
+</html>
