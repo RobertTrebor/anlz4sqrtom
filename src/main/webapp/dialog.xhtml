@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  template="/resources/templates/templateMain.xhtml">
+
+	<ui:define name="main">
+		<div class="ui-fluid">
+			<p:panelGrid columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
+				<p:panel id="venuetable" header="Venue List">
+					<h:form id="venuetableform">
+						<p:commandButton update="display" oncomplete="PF('venueDialog').show();"/>
+					</h:form>
+					<p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
+								  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
+								  hideEffect="explode" styleClass="ui-fluid">
+						<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
+							<h:outputText value="Name:" />
+							<h:outputText value="Text" />
+						</h:panelGrid>
+					</p:dialog>
+				</p:panel>
+			</p:panelGrid>
+		</div>
+		<p:ajaxStatus
+			style="width:64px;height:64px;position:fixed;top:5px;left:5px">
+			<f:facet name="start">
+				<p:graphicImage library="img" name="ajax-loader.gif" />
+			</f:facet>
+
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
+	</ui:define>
+</ui:composition>
