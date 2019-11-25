@@ -132,7 +132,7 @@
 							</p:dataTable>
                         </h:form>
                         <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true"
-									  resizable="false" width="400" showEffect="explode"
+									  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
 									  hideEffect="explode" styleClass="ui-fluid">
 
 								<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
@@ -156,12 +156,9 @@
 
                         <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog"
 									  resizable="false" width="400" showEffect="explode"
-									  hideEffect="explode">
+									  hideEffect="explode" onHide="PF('checkinDialog').hide();">
 
 								<h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
-
-									<f:facet name="header">
-									</f:facet>
 
 									<h:outputText value="ID:" />
 									<h:outputText value="#{form.selectedCheckin.id}" />
@@ -180,7 +177,6 @@
 
 								</h:panelGrid>
 							</p:dialog>
-
 					</p:panel>
 			    </p:panelGrid>
 
@@ -221,7 +217,6 @@
 			</p:ajaxStatus>
 
 			<p:remoteCommand name="updateRC" actionListener="#{basicBean.update()}" update="venuetable"/>
-
 
 	</ui:define>
 </ui:composition>
