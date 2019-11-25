@@ -8,6 +8,7 @@ import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
+import org.primefaces.PrimeFaces;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -158,5 +159,9 @@ public class BasicBean implements Serializable {
 	public boolean isAuthenticated(){
 	    return fsConnect.isAuthenticated();
     }
+
+    public void close(){
+		PrimeFaces.current().executeScript("PF('venueDialog').hide();");
+	}
 
 }

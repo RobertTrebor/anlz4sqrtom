@@ -134,7 +134,7 @@
                         <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
 									  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
 									  hideEffect="explode" styleClass="ui-fluid" appendTo="venuetableform">
-
+							<p:ajax event="close" listener="#{basicBean.close()}"/>
 								<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
 									<h:outputText value="Name:" />
 									<h:outputText value="#{form.selectedVenue.name}" id="name" />
