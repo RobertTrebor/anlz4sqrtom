@@ -29,12 +29,13 @@
 			<p:panelGrid columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
 				<p:panel id="venuetable" header="Venue List">
 					<h:form id="venuetableform">
-						<p:commandButton update="display" oncomplete="PF('venueDialog').show();"/>
+						<p:commandButton update="displayForm" oncomplete="PF('venueDialog').show();"/>
 					</h:form>
 
 				</p:panel>
 			</p:panelGrid>
 		</div>
+        <h:form id="displayForm">
         <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
                   resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
                   hideEffect="explode" styleClass="ui-fluid">
@@ -43,6 +44,7 @@
                 <h:outputText value="Text" />
             </h:panelGrid>
         </p:dialog>
+        </h:form>
 	</h:body>
 </f:view>
 </html>
