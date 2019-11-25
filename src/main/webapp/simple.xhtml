@@ -36,9 +36,9 @@
 			</p:panelGrid>
 		</div>
         <h:form id="displayForm">
-        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
+        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true" appendTo="@(body)"
                   resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
-                  hideEffect="explode" styleClass="ui-fluid">
+                  hideEffect="explode">
             <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
                 <h:outputText value="Name:" />
                 <h:outputText value="Text" />
