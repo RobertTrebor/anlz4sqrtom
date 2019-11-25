@@ -131,55 +131,54 @@
 								</p:column>
 							</p:dataTable>
                         </h:form>
-                        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
-									  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
-									  hideEffect="explode" styleClass="ui-fluid" appendTo="@(body)" closable="true">
-							<p:ajax event="close" listener="#{basicBean.close()}"/>
-								<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
-									<h:outputText value="Name:" />
-									<h:outputText value="#{form.selectedVenue.name}" id="name" />
 
-									<h:outputText value="Address:" />
-									<h:outputText value="#{form.selectedVenue.location.address}" id="address" />
-
-									<h:outputText value="Zip:" />
-									<h:outputText value="#{form.selectedVenue.location.postalCode}" id="postalCode" />
-
-									<h:outputText value="City:" />
-									<h:outputText value="#{form.selectedVenue.location.city}" id="city" />
-
-									<h:outputText value="Id:" />
-									<h:outputText value="#{form.selectedVenue.id}"/>
-
-								</h:panelGrid>
-							</p:dialog>
-
-                        <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog" modal="true" appendTo="@(body)"
-									  resizable="false" width="400" showEffect="explode" responsive="true"
-									  hideEffect="explode" onHide="PF('checkinDialog').hide();">
-
-								<h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
-
-									<h:outputText value="ID:" />
-									<h:outputText value="#{form.selectedCheckin.id}" />
-
-									<h:outputText value="Address:" />
-									<h:outputText value="#{form.selectedCheckin.venue.location.address}"/>
-
-									<h:outputText value="Zip:" />
-									<h:outputText value="#{form.selectedCheckin.venue.location.postalCode}"/>
-
-									<h:outputText value="City:" />
-									<h:outputText value="#{form.selectedCheckin.venue.location.city}" />
-
-									<h:outputText value="Comment:" />
-									<h:outputText value="#{form.selectedComment}" />
-
-								</h:panelGrid>
-							</p:dialog>
 					</p:panel>
 			    </p:panelGrid>
+                <p:dialog header="Venue Details" widgetVar="venueDialog"
+                          resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
+                          hideEffect="explode" appendTo="@(body)">
+                    <p:ajax event="close" listener="#{basicBean.close()}"/>
+                    <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
+                        <h:outputText value="Name:" />
+                        <h:outputText value="#{form.selectedVenue.name}" id="name" />
 
+                        <h:outputText value="Address:" />
+                        <h:outputText value="#{form.selectedVenue.location.address}" id="address" />
+
+                        <h:outputText value="Zip:" />
+                        <h:outputText value="#{form.selectedVenue.location.postalCode}" id="postalCode" />
+
+                        <h:outputText value="City:" />
+                        <h:outputText value="#{form.selectedVenue.location.city}" id="city" />
+
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{form.selectedVenue.id}"/>
+
+                    </h:panelGrid>
+                </p:dialog>
+                <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialog" appendTo="@(body)"
+                          resizable="false" width="400" showEffect="explode"
+                          hideEffect="explode" onHide="PF('checkinDialog').hide();">
+
+                    <h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
+
+                        <h:outputText value="ID:" />
+                        <h:outputText value="#{form.selectedCheckin.id}" />
+
+                        <h:outputText value="Address:" />
+                        <h:outputText value="#{form.selectedCheckin.venue.location.address}"/>
+
+                        <h:outputText value="Zip:" />
+                        <h:outputText value="#{form.selectedCheckin.venue.location.postalCode}"/>
+
+                        <h:outputText value="City:" />
+                        <h:outputText value="#{form.selectedCheckin.venue.location.city}" />
+
+                        <h:outputText value="Comment:" />
+                        <h:outputText value="#{form.selectedComment}" />
+
+                    </h:panelGrid>
+                </p:dialog>
                 <p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
 					<h:form>
 						<p:fieldset legend="Map" toggleable="true">
