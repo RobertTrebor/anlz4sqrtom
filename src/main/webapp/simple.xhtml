@@ -31,17 +31,18 @@
 					<h:form id="venuetableform">
 						<p:commandButton update="display" oncomplete="PF('venueDialog').show();"/>
 					</h:form>
-					<p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
-								  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
-								  hideEffect="explode" styleClass="ui-fluid">
-						<h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
-							<h:outputText value="Name:" />
-							<h:outputText value="Text" />
-						</h:panelGrid>
-					</p:dialog>
+
 				</p:panel>
 			</p:panelGrid>
 		</div>
+        <p:dialog header="Venue Details" widgetVar="venueDialog" responsive="true" modal="true"
+                  resizable="false" width="400" showEffect="explode" onHide="PF('venueDialog').hide();"
+                  hideEffect="explode" styleClass="ui-fluid">
+            <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
+                <h:outputText value="Name:" />
+                <h:outputText value="Text" />
+            </h:panelGrid>
+        </p:dialog>
 	</h:body>
 </f:view>
 </html>
