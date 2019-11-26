@@ -58,13 +58,15 @@ public class BasicBean implements Serializable {
 	}
 
 	public void onStart(){
-	    HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        //HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-        Map map = request.getParameterMap();
-        if(map.containsKey("code")){
-        	String[] headers = (String[]) map.get("code");
-			fsConnect.authorizeToken(headers[0]);
-		}
+	    if(!PrimeFaces.current().isAjaxRequest()) {
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            //HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            Map map = request.getParameterMap();
+            if (map.containsKey("code")) {
+                String[] headers = (String[]) map.get("code");
+                fsConnect.authorizeToken(headers[0]);
+            }
+        }
     }
 
 	public void load(){
