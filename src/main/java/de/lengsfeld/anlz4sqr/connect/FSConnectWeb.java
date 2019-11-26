@@ -21,7 +21,7 @@ public class FSConnectWeb implements FSConnector, Serializable {
 	private final String CALLBACK = System.getenv("CALLBACK");
 	private boolean authenticated = false;
 
-	private OAuth20Service service;
+	private OAuth20Service service = null;
 
 	private FoursquareApi foursquareApi;
 
@@ -47,9 +47,17 @@ public class FSConnectWeb implements FSConnector, Serializable {
 		return authorizationUrl;
 	}
 
-	public String authorizeToken(String code) {
+	public String authorizeToken(String code){
+		if(service != null){
+			return performAuthorizeToken(code);
+		}
+		return "";
+	}
+
+	private String performAuthorizeToken(String code) {
 		final OAuth2AccessToken accessToken;
 		String token = "";
+
 		try {
 			accessToken = service.getAccessToken(code);
 			token = accessToken.getAccessToken();
