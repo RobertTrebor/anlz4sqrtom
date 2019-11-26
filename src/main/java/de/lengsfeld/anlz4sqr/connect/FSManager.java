@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-public final class FSManager {
+
+public class FSManager {
 
 	private FoursquareApi foursquareApi;
 

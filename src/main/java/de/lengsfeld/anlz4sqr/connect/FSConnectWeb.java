@@ -7,10 +7,14 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 import fi.foyt.foursquare.api.FoursquareApi;
 import fi.foyt.foursquare.api.io.DefaultIOHandler;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 
-public class FSConnectWeb implements FSConnector {
+@SessionScoped
+public class FSConnectWeb implements FSConnector, Serializable {
 
 	private final String ID = System.getenv("ID");
 	private final String SECRET = System.getenv("SECRET");
@@ -19,12 +23,13 @@ public class FSConnectWeb implements FSConnector {
 
 	private OAuth20Service service;
 
-	private static FSConnector instance = null;
 	private FoursquareApi foursquareApi;
 
-	private FSConnectWeb() {
+	@PostConstruct
+	public void init(){
 		foursquareApi = new FoursquareApi(ID, SECRET, CALLBACK);
 	}
+
 
 	public String authorize(){
 		service = new ServiceBuilder(ID)
@@ -62,13 +67,6 @@ public class FSConnectWeb implements FSConnector {
 		}
 
 		return token;
-	}
-
-	public static FSConnector getInstance() {
-		if (instance == null) {
-			instance = new FSConnectWeb();
-		}
-		return instance;
 	}
 
 	public FoursquareApi getFoursquareApi() {

@@ -1,7 +1,6 @@
 package de.lengsfeld.anlz4sqr.beans;
 
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
-import de.lengsfeld.anlz4sqr.connect.FSConnector;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
@@ -10,6 +9,7 @@ import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 import org.primefaces.PrimeFaces;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -30,6 +30,9 @@ public class BasicBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
+    private FSConnectWeb fsConnect;
+
+	@Inject
 	private Form form;
 
 	@Inject
@@ -38,13 +41,13 @@ public class BasicBean implements Serializable {
 	@Inject
 	private CategoriesController categoriesController;
 
+    private FSManager fsManager;
 
-	private FSManager fsManager = new FSManager(FSConnectWeb.getInstance().getFoursquareApi());
-	private FSConnector fsConnect = FSConnectWeb.getInstance();
-
-	public BasicBean() {
-		System.setProperty("java.net.useSystemProxies", "true");
-	}
+	@PostConstruct
+    public void init(){
+        System.setProperty("java.net.useSystemProxies", "true");
+	    fsManager = new FSManager(fsConnect.getFoursquareApi());
+    }
 
 	public void connect() throws IOException {
 		String authorizationCode = fsConnect.authorize();
