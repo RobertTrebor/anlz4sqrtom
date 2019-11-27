@@ -17,6 +17,7 @@
 						<p:panelGrid>
 							<p:inputNumber value="#{form.numCheckins}" />
 							<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
+							<p:commandButton action="#{basicBean.loadCheckinsOffset()}" value="More" update="venuetable"/>
 							<p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
 						</p:panelGrid>
 						<p:panelGrid>
@@ -132,7 +133,7 @@
 			    </p:panelGrid>
                 <p:dialog header="Venue Details" widgetVar="venueDialogWidget" closable="false" id="venueDialog"
                           resizable="false" width="400" showEffect="explode" onHide="PF('venueDialogWidget').hide();"
-                          hideEffect="explode">
+                          hideEffect="explode" position="center center" >
                     <f:facet name="footer">
                         <p:commandButton value="close" oncomplete="PF('venueDialogWidget').hide();"/>
                     </f:facet>
@@ -155,7 +156,7 @@
                     </h:panelGrid>
                 </p:dialog>
                 <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialogWidget"
-                          resizable="false" width="400" showEffect="explode"
+                          resizable="false" closable="false" width="400" showEffect="explode"
                           hideEffect="explode" onHide="PF('checkinDialogWidget').hide();">
 					<f:facet name="footer">
 						<p:commandButton value="close" oncomplete="PF('checkinDialogWidget').hide();"/>

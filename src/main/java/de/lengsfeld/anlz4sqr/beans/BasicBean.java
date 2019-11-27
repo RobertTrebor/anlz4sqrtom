@@ -27,8 +27,6 @@ import java.util.Map;
 @RequestScoped
 public class BasicBean implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	@Inject
     private FSConnectWeb fsConnect;
 
@@ -80,11 +78,8 @@ public class BasicBean implements Serializable {
 			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
-			System.out.print("BasicBean.java - category: " + form.getCategory());
 			form.setCoordinates(mapBean.getCoordinates());
-			System.out.println("\t coordinates");
-			Result<VenuesSearchResult> result = fsManager.draw3(form.getCoordinates(), form.getQuery(),
-					form.getCategory());
+			Result<VenuesSearchResult> result = fsManager.draw3(form.getCoordinates(), form.getQuery(), form.getCategory());
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
 		}
 	}
@@ -124,6 +119,12 @@ public class BasicBean implements Serializable {
 		form.setView(3);
 		List<Checkin> checkins = fsManager.checkinHistory(form.getNumCheckins());
         form.setCheckins(checkins);
+	}
+
+	public void loadCheckinsOffset(){
+		List<Checkin> checkins = form.getCheckins();
+		List<Checkin> moreCheckins = fsManager.checkinHistory(form.getNumCheckins(), form.getNumCheckins());
+		moreCheckins.stream().forEachOrdered(checkins::add);
 	}
 
 	public void loadCheckinsWithComments(){
