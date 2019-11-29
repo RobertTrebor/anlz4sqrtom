@@ -7,8 +7,12 @@ import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
-import org.primefaces.PrimeFaces;
-
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -16,12 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import org.primefaces.PrimeFaces;
 
 @Named
 @RequestScoped
@@ -56,7 +55,7 @@ public class BasicBean implements Serializable {
 	}
 
 	public void onStart(){
-	    if(!PrimeFaces.current().isAjaxRequest()) {
+	    if(!PrimeFaces.current().isAjaxRequest() && !fsConnect.isAuthenticated()) {
             HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             //HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
             Map map = request.getParameterMap();
