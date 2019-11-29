@@ -118,26 +118,40 @@ public class BasicBean implements Serializable {
 	public void loadCheckins(){
 		form.setView(3);
 		List<Checkin> checkins = fsManager.checkinHistory(form.getNumCheckins());
-        form.setCheckins(checkins);
+		form.setNumCheckinsLoaded(form.getNumCheckins());
+        if(form.getCheckinsWithComments()){
+            checkins = loadCheckinsWithComments(checkins);
+        }
+		form.setCheckins(checkins);
 	}
 
-	public void loadCheckinsOffset(){
+	public void loadMoreCheckins(){
+        form.setCheckins(loadCheckinsOffset());
+        form.setNumCheckinsLoaded((form.getNumCheckinsLoaded() + form.getNumCheckins()));
+    }
+
+	private List<Checkin> loadCheckinsOffset(){
 		List<Checkin> checkins = form.getCheckins();
-		List<Checkin> moreCheckins = fsManager.checkinHistory(form.getNumCheckins(), form.getNumCheckins());
-		moreCheckins.stream().forEachOrdered(checkins::add);
+		List<Checkin> moreCheckins = fsManager.checkinHistory(form.getNumCheckins(), form.getNumCheckinsLoaded());
+        if(form.getCheckinsWithComments()) {
+            moreCheckins = loadCheckinsWithComments(moreCheckins);
+        }
+		List<Checkin> expandedList = new ArrayList<>();
+        expandedList.addAll(checkins);
+        expandedList.addAll(moreCheckins);
+        return expandedList;
 	}
 
-	public void loadCheckinsWithComments(){
-		loadCheckins();
+	public List<Checkin> loadCheckinsWithComments(List<Checkin> checkins){
 		List<Checkin> checkinsWithComments = new ArrayList<>();
-		for(Checkin checkin : form.getCheckins()){
+		for(Checkin checkin : checkins){
 			Long l = checkin.getCreatedAt();
 			String name = checkin.getVenue().getName();
 			if(checkin.getComments() != null && checkin.getComments().getCount() != null && checkin.getComments().getCount() > 0) {
 				checkinsWithComments.add(checkin);
 			}
 		}
-		form.setCheckins(checkinsWithComments);
+
 		if(!checkinsWithComments.isEmpty()) {
 			String comments = "";
 			for (Checkin checkin : checkinsWithComments) {
@@ -149,6 +163,7 @@ public class BasicBean implements Serializable {
 			}
 			form.setConcatenatedComments(comments);
 		}
+		return checkinsWithComments;
     }
 
 	public String retrieveComment(){

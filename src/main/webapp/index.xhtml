@@ -15,10 +15,11 @@
 				<h:form>
 					<p:panelGrid columns="3" columnClasses="ui-g-12 ui-xl-4, ui-g-12 ui-xl-4, ui-g-12 ui-xl-4" layout="grid" rendered="#{basicBean.isAuthenticated()}">
 						<p:panelGrid>
+                            <p:outputLabel for="commentsCheckbox" value="Checkins with Comments"/>
+                            <p:selectBooleanCheckbox id="commentsCheckbox" value="#{form.checkinsWithComments}"/>
 							<p:inputNumber value="#{form.numCheckins}" />
 							<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable" />
-							<p:commandButton action="#{basicBean.loadCheckinsOffset()}" value="More" update="venuetable"/>
-							<p:commandButton action="#{basicBean.loadCheckinsWithComments()}" value="Checkins Comments" update="venuetable" />
+							<p:commandButton action="#{basicBean.loadMoreCheckins()}" value="More" update="venuetable"/>
 						</p:panelGrid>
 						<p:panelGrid>
 							<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
