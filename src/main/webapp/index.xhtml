@@ -26,7 +26,7 @@
 							<p:panelGrid>
 								<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable"/>
 								<p:commandButton action="#{basicBean.loadMoreCheckins()}" value="More"
-												 update="venuetable" rendered="#{not empty(form.checkins)}"/>
+												 update="venuetable" disabled="#{empty(form.checkins)}"/>
 							</p:panelGrid>
 						</p:panelGrid>
 						<p:panelGrid>
