@@ -2,7 +2,9 @@ package de.lengsfeld.anlz4sqr.controller;
 
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
-
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.NavigationHandler;
@@ -11,9 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Map;
 
 @Named
 @RequestScoped
@@ -49,7 +48,7 @@ public class AuthorizationController implements Serializable {
 			fsConnect.authorizeToken(headers[0]);
 		}
 		NavigationHandler navigationHandler = FacesContext.getCurrentInstance().getApplication().getNavigationHandler();
-		navigationHandler.handleNavigation(FacesContext.getCurrentInstance(), "authorize", "index");
+		navigationHandler.handleNavigation(FacesContext.getCurrentInstance(), "authorize", "index?faces-redirect=true");
 
     }
 
