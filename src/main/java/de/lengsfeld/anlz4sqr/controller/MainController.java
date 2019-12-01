@@ -1,18 +1,16 @@
-package de.lengsfeld.anlz4sqr.beans;
+package de.lengsfeld.anlz4sqr.controller;
 
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
+import de.lengsfeld.anlz4sqr.form.MainForm;
+import de.lengsfeld.anlz4sqr.form.MapForm;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import org.primefaces.PrimeFaces;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -20,20 +18,25 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.primefaces.PrimeFaces;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Named
 @RequestScoped
-public class BasicBean implements Serializable {
+public class MainController implements Serializable {
 
 	@Inject
     private FSConnectWeb fsConnect;
 
 	@Inject
-	private Form form;
+	private MainForm form;
 
 	@Inject
-	private MapBean mapBean;
+	private MapForm mapBean;
 
 	@Inject
 	private CategoriesController categoriesController;

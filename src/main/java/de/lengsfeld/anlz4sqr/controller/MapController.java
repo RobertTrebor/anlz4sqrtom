@@ -1,34 +1,29 @@
-package de.lengsfeld.anlz4sqr.beans;
+package de.lengsfeld.anlz4sqr.controller;
 
+import de.lengsfeld.anlz4sqr.form.MapForm;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.LatLngBounds;
-import org.primefaces.model.map.MapModel;
 
-import javax.enterprise.context.SessionScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.Serializable;
 
 @Named
-@SessionScoped
-public class MapBean implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+@RequestScoped
+public class MapController {
 
-	private MapModel model;
-	private String latitude = "52.531227";
-	private String longitude = "13.403921";
-	
-	public MapBean() {
-		model = new DefaultMapModel();
-	}
+	@Inject
+	private MapForm form;
 
-	public MapModel getModel() {
-		return model;
+	@PostConstruct
+	public void init(){
+		form.setModel(new DefaultMapModel());
 	}
 
 	public void onStateChange(StateChangeEvent event) {
@@ -47,8 +42,8 @@ public class MapBean implements Serializable {
 
 	public void onPointSelect(PointSelectEvent event) {
 		LatLng latlng = event.getLatLng();
-		latitude = String.valueOf(latlng.getLat());
-		longitude = String.valueOf(latlng.getLng());
+		form.setLatitude(String.valueOf(latlng.getLat()));
+		form.setLongitude(String.valueOf(latlng.getLng()));
 
 		addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO,
 				"Point Selected", "Lat:" + latlng.getLat() + ", Lng:"
@@ -59,23 +54,4 @@ public class MapBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
-	public String getLatitude() {
-		return latitude;
-	}
-
-	public String getLongitude() {
-		return longitude;
-	}
-
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-
-	public String getCoordinates() {
-		return latitude + "," + longitude;
-	}
 }

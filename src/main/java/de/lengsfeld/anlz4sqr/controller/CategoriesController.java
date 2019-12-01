@@ -1,4 +1,4 @@
-package de.lengsfeld.anlz4sqr.beans;
+package de.lengsfeld.anlz4sqr.controller;
 
 import org.jdom2.Attribute;
 import org.jdom2.Document;
@@ -14,8 +14,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;

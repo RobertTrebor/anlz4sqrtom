@@ -10,32 +10,32 @@
 	  template="/resources/templates/templateMain.xhtml">
 
 	<ui:define name="main">
-		<f:event listener="#{basicBean.onStart()}" type="preRenderView"/>
+		<f:event listener="#{mainController.onStart()}" type="preRenderView"/>
 
 				<h:form>
 					<p:panelGrid columns="3"
 								 columnClasses="ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-xl-4"
-								 layout="grid" rendered="#{basicBean.isAuthenticated()}">
+								 layout="grid" rendered="#{mainController.isAuthenticated()}">
 						<p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6">
 							<p:panelGrid>
-								<p:inputNumber value="#{form.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
-								<p:inputNumber value="#{form.numCheckins}" decimalPlaces="0"/>
-								<p:selectBooleanCheckbox id="commentsCheckbox" value="#{form.checkinsWithComments}"/>
+								<p:inputNumber value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
+								<p:inputNumber value="#{mainForm.numCheckins}" decimalPlaces="0"/>
+								<p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
 								<p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
 							</p:panelGrid>
 							<p:panelGrid>
-								<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="@(form) venuetable"/>
-								<p:commandButton action="#{basicBean.loadMoreCheckins()}" value="More"
-												 update="@(form) venuetable" disabled="#{(form.numCheckinsLoaded) eq 0}"/>
+								<p:commandButton action="#{mainController.loadCheckins()}" value="Checkins" update="@(form) venuetable"/>
+								<p:commandButton action="#{mainController.loadMoreCheckins()}" value="More"
+												 update="@(form) venuetable" disabled="#{(mainForm.numCheckinsLoaded) eq 0}"/>
 							</p:panelGrid>
 						</p:panelGrid>
 						<p:panelGrid>
-							<p:commandButton action="#{basicBean.load()}" value="Load Venues" update="venuetable" />
-							<p:commandButton action="#{basicBean.loadHistory()}" value="History" update="venuetable" />
+							<p:commandButton action="#{mainController.load()}" value="Load Venues" update="venuetable" />
+							<p:commandButton action="#{mainController.loadHistory()}" value="History" update="venuetable" />
 						</p:panelGrid>
 						<p:panelGrid rendered="false">
-							<p:commandButton action="#{basicBean.save()}" value="Save DB" update="venuetable" disabled="true" />
-							<p:commandButton action="#{basicBean.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
+							<p:commandButton action="#{mainController.save()}" value="Save DB" update="venuetable" disabled="true" />
+							<p:commandButton action="#{mainController.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
 						</p:panelGrid>
 					</p:panelGrid>
 				</h:form>
@@ -43,9 +43,9 @@
 				<p:panelGrid id="venuetable" columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
 
 						<h:form id="venuetableform">
-							<p:dataTable var="venue" value="#{form.venues}" rendered="#{form.view == 0}"
+							<p:dataTable var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
 										 rowKey="#{venue.name}" paginator="true" rows="15"
-										 selection="#{form.selectedVenue}" selectionMode="single">
+										 selection="#{mainForm.selectedVenue}" selectionMode="single">
 
 								<p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();" />
 								<f:facet name="header">Venue List</f:facet>
@@ -62,7 +62,7 @@
 								</p:column>
 							</p:dataTable>
 
-							<p:dataTable var="history" value="#{form.venueHistories}" rendered="#{form.view == 1}"
+							<p:dataTable var="history" value="#{mainForm.venueHistories}" rendered="#{mainForm.view == 1}"
 										 rowKey="#{venue.name}" paginator="true" rows="15">
 
 								<p:column headerText="Checkins" sortBy="Checkins" filterBy="name" >
@@ -82,8 +82,8 @@
 								</p:column>
 							</p:dataTable>
 
-							<p:dataTable var="historydb" value="#{form.venueHistoriesDb}" rendered="#{form.view == 2}"
-										 selectionMode="single" selection="#{form.selectedHistory}"
+							<p:dataTable var="historydb" value="#{mainForm.venueHistoriesDb}" rendered="#{mainForm.view == 2}"
+										 selectionMode="single" selection="#{mainForm.selectedHistory}"
 										 rowKey="#{historydb.id}" paginator="true" rows="15">
 
 								<p:column id="idCol" headerText="Id" sortable="true" sortBy="#{historydb.id}"
@@ -108,11 +108,11 @@
 								</p:column>
 							</p:dataTable>
 
-							<p:dataTable var="checkins" value="#{form.checkins}" rendered="#{form.view == 3}"
-										 selectionMode="single" selection="#{form.selectedCheckin}"
+							<p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
+										 selectionMode="single" selection="#{mainForm.selectedCheckin}"
 										 rowKey="#{checkins.id}" paginator="true" rows="15">
 
-								<p:ajax event="rowSelect" update="checkingDlg" listener="#{basicBean.retrieveComment()}"
+								<p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
 										oncomplete="PF('checkinDialogWidget').show();" />
 
 								<p:column headerText="Id" sortable="true" sortBy="#{checkins.id}"
@@ -148,19 +148,19 @@
                     </f:facet>
                     <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
                         <h:outputText value="Name:" />
-                        <h:outputText value="#{form.selectedVenue.name}" id="name" />
+                        <h:outputText value="#{mainForm.selectedVenue.name}" id="name" />
 
                         <h:outputText value="Address:" />
-                        <h:outputText value="#{form.selectedVenue.location.address}" id="address" />
+                        <h:outputText value="#{mainForm.selectedVenue.location.address}" id="address" />
 
                         <h:outputText value="Zip:" />
-                        <h:outputText value="#{form.selectedVenue.location.postalCode}" id="postalCode" />
+                        <h:outputText value="#{mainForm.selectedVenue.location.postalCode}" id="postalCode" />
 
                         <h:outputText value="City:" />
-                        <h:outputText value="#{form.selectedVenue.location.city}" id="city" />
+                        <h:outputText value="#{mainForm.selectedVenue.location.city}" id="city" />
 
                         <h:outputText value="Id:" />
-                        <h:outputText value="#{form.selectedVenue.id}"/>
+                        <h:outputText value="#{mainForm.selectedVenue.id}"/>
 
                     </h:panelGrid>
                 </p:dialog>
@@ -173,19 +173,19 @@
                     <h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
 
                         <h:outputText value="ID:" />
-                        <h:outputText value="#{form.selectedCheckin.id}" />
+                        <h:outputText value="#{mainForm.selectedCheckin.id}" />
 
                         <h:outputText value="Address:" />
-                        <h:outputText value="#{form.selectedCheckin.venue.location.address}"/>
+                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.address}"/>
 
                         <h:outputText value="Zip:" />
-                        <h:outputText value="#{form.selectedCheckin.venue.location.postalCode}"/>
+                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.postalCode}"/>
 
                         <h:outputText value="City:" />
-                        <h:outputText value="#{form.selectedCheckin.venue.location.city}" />
+                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.city}" />
 
                         <h:outputText value="Comment:" />
-                        <h:outputText value="#{form.selectedComment}" />
+                        <h:outputText value="#{mainForm.selectedComment}" />
 
                     </h:panelGrid>
                 </p:dialog>
@@ -193,10 +193,10 @@
 					<h:form>
 						<p:fieldset legend="Map" toggleable="true">
 							<p:growl id="messages" showDetail="true" life="2000" />
-							<p:gmap center="#{mapBean.coordinates}" zoom="15" type="HYBRID"
-									style="width:480px;height:300px" model="#{mapBean.model}">
-								<p:ajax event="stateChange" listener="#{mapBean.onStateChange}" update="messages" />
-								<p:ajax event="pointSelect" listener="#{mapBean.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
+							<p:gmap center="#{mapForm.coordinates}" zoom="15" type="HYBRID"
+									style="width:480px;height:300px" model="#{mapForm.model}">
+								<p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages" />
+								<p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
 							</p:gmap>
 						</p:fieldset>
 					</h:form>
@@ -225,7 +225,7 @@
 				</f:facet>
 			</p:ajaxStatus>
 
-			<p:remoteCommand name="updateRC" actionListener="#{basicBean.update()}" update="venuetable"/>
+			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable"/>
 
 	</ui:define>
 </ui:composition>

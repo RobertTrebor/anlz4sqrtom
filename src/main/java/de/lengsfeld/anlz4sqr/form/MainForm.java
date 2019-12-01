@@ -1,4 +1,4 @@
-package de.lengsfeld.anlz4sqr.beans;
+package de.lengsfeld.anlz4sqr.form;
 
 import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.CompactVenue;
@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Named
 @SessionScoped
-public class Form implements Serializable {
+public class MainForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
