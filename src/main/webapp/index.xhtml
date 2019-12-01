@@ -18,15 +18,15 @@
 								 layout="grid" rendered="#{basicBean.isAuthenticated()}">
 						<p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6">
 							<p:panelGrid>
-								<p:inputNumber value="#{form.numCheckins}" decimalPlaces="0" />
-
+								<p:inputNumber value="#{form.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
+								<p:inputNumber value="#{form.numCheckins}" decimalPlaces="0"/>
 								<p:selectBooleanCheckbox id="commentsCheckbox" value="#{form.checkinsWithComments}"/>
 								<p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
 							</p:panelGrid>
 							<p:panelGrid>
-								<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="venuetable"/>
+								<p:commandButton action="#{basicBean.loadCheckins()}" value="Checkins" update="@(form) venuetable"/>
 								<p:commandButton action="#{basicBean.loadMoreCheckins()}" value="More"
-												 update="venuetable" disabled="#{empty(form.checkins)}"/>
+												 update="@(form) venuetable" disabled="#{(form.numCheckinsLoaded) eq 0}"/>
 							</p:panelGrid>
 						</p:panelGrid>
 						<p:panelGrid>
