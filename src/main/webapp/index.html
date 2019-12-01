@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content="0; url=index.xhtml"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Heroku Java EE Starter Application</title>
+    <title>Anlz4sqr</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     	body {
     		font-family: sans-serif;
-    	} 
+    	}
 		.unkown {
 			background-color: lightyellow;
 		}
@@ -20,13 +20,13 @@
 		.down {
 			background-color: lightred;
 		}
-		
+
 		thead {
 			font-weight: bold;
 		}
 		tr:nth-child(odd) {background: #add8e666;}
 
-		
+
     </style>
     <meta http-equiv="refresh" content="0; url=index.xhtml"/>
     <title>Redirect....</title>
@@ -53,7 +53,7 @@
     <script>
    	const statusDiv = document.querySelector("#status");
 	const envEntriesTableBody = document.querySelector("#envEntriesTableBody");
-	
+
 	function setState(state) {
 		statusDiv.classList.remove("up");
 		statusDiv.classList.remove("down");
@@ -80,12 +80,12 @@
 				</tr>`;
 
 			//const node = document.createRange().createContextualFragment(row);
-				
+
 			envEntriesTableBody.innerHTML += row;
 		}
 	}
-	
-   	
+
+
    	async function main() {
 		let response = await fetch("resources/env");
 		if (status != "200") {
@@ -101,7 +101,7 @@
 
    	setState('unknown');
     main();
-		
+
     </script>
 </body>
 
