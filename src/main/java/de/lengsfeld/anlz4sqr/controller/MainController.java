@@ -13,17 +13,12 @@ import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Named
 @RequestScoped
@@ -49,24 +44,9 @@ public class MainController implements Serializable {
 	    fsManager = new FSManager(fsConnect.getFoursquareApi());
     }
 
-	public void connect() throws IOException {
-		String authorizationCode = fsConnect.authorize();
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-		String sessionId = ";jsessionid=" + facesContext.getExternalContext().getSessionId(false);
-		response.sendRedirect(authorizationCode + sessionId);
-	}
 
 	public void onStart(){
-	    if(!PrimeFaces.current().isAjaxRequest() && !fsConnect.isAuthenticated()) {
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            //HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-            Map map = request.getParameterMap();
-            if (map.containsKey("code")) {
-                String[] headers = (String[]) map.get("code");
-                fsConnect.authorizeToken(headers[0]);
-            }
-        }
+
     }
 
 	public void load(){
