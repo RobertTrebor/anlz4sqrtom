@@ -34,6 +34,9 @@ public class MainController implements Serializable {
 	private MainForm form;
 
 	@Inject
+	private MapController mapController;
+
+	@Inject
 	private MapForm mapForm;
 
 	@Inject
@@ -63,15 +66,13 @@ public class MainController implements Serializable {
 			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
-			form.setCoordinates(mapForm.getCoordinates());
-			Result<VenuesSearchResult> result = fsManager.draw3(form.getCoordinates(), form.getQuery(), form.getCategory());
+			Result<VenuesSearchResult> result = fsManager.draw3(mapForm.getCoordinates(), form.getQuery(), form.getCategory());
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
 			for(CompactVenue venue : form.getVenues()) {
 				LatLng latLng = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
 				Marker marker = new Marker(latLng);
-				mapForm.getModel().addOverlay(marker);
+				mapController.addMarker(marker);
 			}
-
 		}
 	}
 

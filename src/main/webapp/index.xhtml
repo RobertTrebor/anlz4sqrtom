@@ -1,235 +1,257 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	  template="/resources/templates/templateMain.xhtml">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/resources/templates/templateMain.xhtml">
 
-	<ui:define name="main">
-		<f:event listener="#{mainController.onStart()}" type="preRenderView"/>
+    <ui:define name="main">
+        <f:event listener="#{mainController.onStart()}" type="preRenderView"/>
 
-				<h:form>
-					<p:panelGrid columns="3"
-								 columnClasses="ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-xl-4"
-								 layout="grid" rendered="#{mainController.isAuthenticated()}">
-						<p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6">
-							<p:panelGrid>
-								<p:inputNumber value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
-								<p:inputNumber value="#{mainForm.numCheckins}" decimalPlaces="0"/>
-								<p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
-								<p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
-							</p:panelGrid>
-							<p:panelGrid>
-								<p:commandButton action="#{mainController.loadCheckins()}" value="Checkins" update="@(form) venuetable"/>
-								<p:commandButton action="#{mainController.loadMoreCheckins()}" value="More"
-												 update="@(form) venuetable" disabled="#{(mainForm.numCheckinsLoaded) eq 0}"/>
-							</p:panelGrid>
-						</p:panelGrid>
-						<p:panelGrid>
-							<p:commandButton action="#{mainController.load()}" value="Load Venues" update="venuetable" />
-							<p:commandButton action="#{mainController.loadHistory()}" value="History" update="venuetable" />
-						</p:panelGrid>
-						<p:panelGrid rendered="false">
-							<p:commandButton action="#{mainController.save()}" value="Save DB" update="venuetable" disabled="true" />
-							<p:commandButton action="#{mainController.loadFromDb()}" value="Load DB" update="venuetable" disabled="true" />
-						</p:panelGrid>
-					</p:panelGrid>
-				</h:form>
+        <h:form>
+            <p:panelGrid columns="3"
+                         columnClasses="ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-xl-4"
+                         layout="grid" rendered="#{mainController.isAuthenticated()}">
+                <p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6">
+                    <p:panelGrid>
+                        <p:inputNumber value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
+                        <p:inputNumber value="#{mainForm.numCheckins}" decimalPlaces="0"/>
+                        <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
+                        <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
+                    </p:panelGrid>
+                    <p:panelGrid>
+                        <p:commandButton action="#{mainController.loadCheckins()}" value="Checkins"
+                                         update="@(form) venuetable"/>
+                        <p:commandButton action="#{mainController.loadMoreCheckins()}" value="More"
+                                         update="@(form) venuetable" disabled="#{(mainForm.numCheckinsLoaded) eq 0}"/>
+                    </p:panelGrid>
+                </p:panelGrid>
+                <p:panelGrid>
+                    <p:commandButton action="#{mainController.load()}" value="Load Venues" update="venuetable"/>
+                    <p:commandButton action="#{mainController.loadHistory()}" value="History" update="venuetable"/>
+                </p:panelGrid>
+                <p:panelGrid rendered="false">
+                    <p:commandButton action="#{mainController.save()}" value="Save DB" update="venuetable"
+                                     disabled="true"/>
+                    <p:commandButton action="#{mainController.loadFromDb()}" value="Load DB" update="venuetable"
+                                     disabled="true"/>
+                </p:panelGrid>
+            </p:panelGrid>
+        </h:form>
 
-				<p:panelGrid id="venuetable" columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
+        <p:panelGrid id="venuetable" columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
 
-						<h:form id="venuetableform">
-							<p:dataTable var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
-										 rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
-										 selection="#{mainForm.selectedVenue}" selectionMode="single">
+            <h:form id="venuetableform">
+                <p:dataTable var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
+                             rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
+                             selection="#{mainForm.selectedVenue}" selectionMode="single">
 
-								<p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();" />
-								<f:facet name="header">Venue List</f:facet>
-								<p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">
-									#{venue.name}
-								</p:column>
+                    <p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();"/>
+                    <f:facet name="header">Venue List</f:facet>
+                    <p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">
+                        #{venue.name}
+                    </p:column>
 
-								<p:column headerText="Address" sortBy="address" sortable="true" filterBy="address" id="titleaddress">
-									#{venue.location.address}
-								</p:column>
+                    <p:column headerText="Address" sortBy="address" sortable="true" filterBy="address"
+                              id="titleaddress">
+                        #{venue.location.address}
+                    </p:column>
 
-								<p:column headerText="City" sortBy="city" filterBy="city" id="titlecity">
-									#{venue.location.city}
-								</p:column>
-							</p:dataTable>
+                    <p:column headerText="City" sortBy="city" filterBy="city" id="titlecity">
+                        #{venue.location.city}
+                    </p:column>
+                </p:dataTable>
 
-							<p:dataTable var="history" value="#{mainForm.venueHistories}" rendered="#{mainForm.view == 1}"
-										 rowKey="#{venue.name}" paginator="true" rows="15">
+                <p:dataTable var="history" value="#{mainForm.venueHistories}" rendered="#{mainForm.view == 1}"
+                             rowKey="#{venue.name}" paginator="true" rows="15">
 
-								<p:column headerText="Checkins" sortBy="Checkins" filterBy="name" >
-									#{history.beenHere}
-								</p:column>
+                    <p:column headerText="Checkins" sortBy="Checkins" filterBy="name">
+                        #{history.beenHere}
+                    </p:column>
 
-								<p:column headerText="Name" sortBy="name" filterBy="name" >
-									#{history.venue.name}
-								</p:column>
+                    <p:column headerText="Name" sortBy="name" filterBy="name">
+                        #{history.venue.name}
+                    </p:column>
 
-								<p:column headerText="Address" sortBy="address" filterBy="address">
-									#{history.venue.location.address}
-								</p:column>
+                    <p:column headerText="Address" sortBy="address" filterBy="address">
+                        #{history.venue.location.address}
+                    </p:column>
 
-								<p:column headerText="City" sortBy="city" filterBy="city" >
-									#{history.venue.location.city}
-								</p:column>
-							</p:dataTable>
+                    <p:column headerText="City" sortBy="city" filterBy="city">
+                        #{history.venue.location.city}
+                    </p:column>
+                </p:dataTable>
 
-							<p:dataTable var="historydb" value="#{mainForm.venueHistoriesDb}" rendered="#{mainForm.view == 2}"
-										 selectionMode="single" selection="#{mainForm.selectedHistory}"
-										 rowKey="#{historydb.id}" paginator="true" rows="15">
+                <p:dataTable var="historydb" value="#{mainForm.venueHistoriesDb}" rendered="#{mainForm.view == 2}"
+                             selectionMode="single" selection="#{mainForm.selectedHistory}"
+                             rowKey="#{historydb.id}" paginator="true" rows="15">
 
-								<p:column id="idCol" headerText="Id" sortable="true" sortBy="#{historydb.id}"
-										  filterBy="#{historydb.id}"  >
-									#{historydb.id}
-								</p:column>
+                    <p:column id="idCol" headerText="Id" sortable="true" sortBy="#{historydb.id}"
+                              filterBy="#{historydb.id}">
+                        #{historydb.id}
+                    </p:column>
 
-								<p:column headerText="Checkins" sortable="true" sortBy="#{historydb.beenHere}" filterBy="#{historydb.beenHere}" >
-									#{historydb.beenHere}
-								</p:column>
+                    <p:column headerText="Checkins" sortable="true" sortBy="#{historydb.beenHere}"
+                              filterBy="#{historydb.beenHere}">
+                        #{historydb.beenHere}
+                    </p:column>
 
-								<p:column headerText="Name" sortBy="#{historydb.venue.name}" filterBy="#{historydb.venue.name}" >
-									#{historydb.venue.name}
-								</p:column>
+                    <p:column headerText="Name" sortBy="#{historydb.venue.name}" filterBy="#{historydb.venue.name}">
+                        #{historydb.venue.name}
+                    </p:column>
 
-								<p:column headerText="Address" sortBy="#{historydb.venue.location.address}" filterBy="#{historydb.venue.location.address}">
-									#{historydb.venue.location.address}
-								</p:column>
+                    <p:column headerText="Address" sortBy="#{historydb.venue.location.address}"
+                              filterBy="#{historydb.venue.location.address}">
+                        #{historydb.venue.location.address}
+                    </p:column>
 
-								<p:column headerText="City" sortBy="#{historydb.venue.location.city}" filterBy="#{historydb.venue.location.city}" >
-									#{historydb.venue.location.city}
-								</p:column>
-							</p:dataTable>
+                    <p:column headerText="City" sortBy="#{historydb.venue.location.city}"
+                              filterBy="#{historydb.venue.location.city}">
+                        #{historydb.venue.location.city}
+                    </p:column>
+                </p:dataTable>
 
-							<p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
-										 selectionMode="single" selection="#{mainForm.selectedCheckin}"
-										 rowKey="#{checkins.id}" paginator="true" rows="15">
+                <p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
+                             selectionMode="single" selection="#{mainForm.selectedCheckin}"
+                             rowKey="#{checkins.id}" paginator="true" rows="15">
 
-								<p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
-										oncomplete="PF('checkinDialogWidget').show();" />
+                    <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
+                            oncomplete="PF('checkinDialogWidget').show();"/>
 
-								<p:column headerText="Id" sortable="true" sortBy="#{checkins.id}"
-										  filterBy="#{checkins.id}"  >
-									#{checkins.id}
-								</p:column>
+                    <p:column headerText="Id" sortable="true" sortBy="#{checkins.id}"
+                              filterBy="#{checkins.id}">
+                        #{checkins.id}
+                    </p:column>
 
-								<p:column headerText="Checkins" sortable="true" sortBy="#{checkins.createdAt}" filterBy="#{checkins.createdAt}" >
-									<h:outputText value="#{checkins.createdAt * 1000}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
-									</h:outputText>
-								</p:column>
-
-								<p:column headerText="Name" sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}" >
-									#{checkins.venue.name}
-								</p:column>
-
-								<p:column headerText="Address" sortBy="#{checkins.venue.location.address}" filterBy="#{checkins.venue.location.address}">
-									#{checkins.venue.location.address}
-								</p:column>
-
-								<p:column headerText="City" sortBy="#{checkins.venue.location.city}" filterBy="#{checkins.venue.location.city}" >
-									#{checkins.venue.location.city}
-								</p:column>
-							</p:dataTable>
-                        </h:form>
-			    </p:panelGrid>
-                <p:dialog header="Venue Details" widgetVar="venueDialogWidget" closable="false" id="venueDialog"
-                          resizable="false" width="400" showEffect="explode" onHide="PF('venueDialogWidget').hide();"
-                          hideEffect="explode" position="center center" >
-                    <f:facet name="footer">
-                        <p:commandButton value="close" oncomplete="PF('venueDialogWidget').hide();"/>
-                    </f:facet>
-                    <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
-                        <h:outputText value="Name:" />
-                        <h:outputText value="#{mainForm.selectedVenue.name}" id="name" />
-
-                        <h:outputText value="Address:" />
-                        <h:outputText value="#{mainForm.selectedVenue.location.address}" id="address" />
-
-                        <h:outputText value="Zip:" />
-                        <h:outputText value="#{mainForm.selectedVenue.location.postalCode}" id="postalCode" />
-
-                        <h:outputText value="City:" />
-                        <h:outputText value="#{mainForm.selectedVenue.location.city}" id="city" />
-
-                        <h:outputText value="Id:" />
-                        <h:outputText value="#{mainForm.selectedVenue.id}"/>
-
-                    </h:panelGrid>
-                </p:dialog>
-                <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialogWidget"
-                          resizable="false" closable="false" width="400" showEffect="explode"
-                          hideEffect="explode" onHide="PF('checkinDialogWidget').hide();">
-					<f:facet name="footer">
-						<p:commandButton value="close" oncomplete="PF('checkinDialogWidget').hide();"/>
-					</f:facet>
-                    <h:panelGrid id="checkinDlgPanel" columns="2" cellpadding="4">
-
-                        <h:outputText value="ID:" />
-                        <h:outputText value="#{mainForm.selectedCheckin.id}" />
-
-                        <h:outputText value="Address:" />
-                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.address}"/>
-
-                        <h:outputText value="Zip:" />
-                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.postalCode}"/>
-
-                        <h:outputText value="City:" />
-                        <h:outputText value="#{mainForm.selectedCheckin.venue.location.city}" />
-
-                        <h:outputText value="Comment:" />
-                        <h:outputText value="#{mainForm.selectedComment}" />
-                        <h:outputText value="#{mainForm.selectedCheckin.timeZone}"/>
-                        <h:outputText value="#{mainForm.selectedCheckin.createdAt * 1000}">
+                    <p:column headerText="Checkins" sortable="true" sortBy="#{checkins.createdAt}"
+                              filterBy="#{checkins.createdAt}">
+                        <h:outputText value="#{checkins.createdAt * 1000}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
+                    </p:column>
 
-                    </h:panelGrid>
-                </p:dialog>
-                <p:panelGrid id="map" columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
-					<h:form id="mapForm">
-						<p:fieldset legend="Map" toggleable="true">
-							<p:growl id="messages" showDetail="true" life="2000" />
-							<p:gmap id="gmap" center="#{mapForm.coordinates}" zoom="15" type="HYBRID" widgetVar="mapWidget"
-									style="width:480px;height:300px" model="#{mapForm.model}">
-								<p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages" />
-								<p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
-							</p:gmap>
-						</p:fieldset>
-					</h:form>
+                    <p:column headerText="Name" sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}">
+                        #{checkins.venue.name}
+                    </p:column>
 
-					<p:fieldset legend="Categories" toggleable="true" collapsed="false" styleClass="ui-fluid">
-						<h:form>
-							<p:tree id="tree" value="#{categoriesController.root}" var="node"
-									selectionMode="single" selection="#{categoriesController.selectedNode}">
-								<p:ajax event="select" listener="#{categoriesController.onNodeSelect}" oncomplete="updateRC();" />
-								<p:treeNode id="treeNode">
-									<h:outputText value="#{node}" id="lblNode" />
-								</p:treeNode>
-							</p:tree>
-						</h:form>
-					</p:fieldset>
-				</p:panelGrid>
+                    <p:column headerText="Address" sortBy="#{checkins.venue.location.address}"
+                              filterBy="#{checkins.venue.location.address}">
+                        #{checkins.venue.location.address}
+                    </p:column>
 
-			<p:ajaxStatus
-				style="width:64px;height:64px;position:fixed;top:5px;left:5px">
-				<f:facet name="start">
-					<p:graphicImage library="img" name="ajax-loader.gif" />
-				</f:facet>
+                    <p:column headerText="City" sortBy="#{checkins.venue.location.city}"
+                              filterBy="#{checkins.venue.location.city}">
+                        #{checkins.venue.location.city}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:panelGrid>
+        <p:dialog header="Venue Details" widgetVar="venueDialogWidget" closable="false" id="venueDialog"
+                  resizable="false" width="420" showEffect="explode" onHide="PF('venueDialogWidget').hide();"
+                  hideEffect="explode" position="center center">
+            <f:facet name="footer">
+                <p:commandButton value="close" oncomplete="PF('venueDialogWidget').hide();"/>
+            </f:facet>
+            <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
+                <h:outputText value="Name:"/>
+                <h:outputText value="#{mainForm.selectedVenue.name}" id="name"/>
 
-				<f:facet name="complete">
-					<h:outputText value="" />
-				</f:facet>
-			</p:ajaxStatus>
+                <h:outputText value="Address:"/>
+                <h:outputText value="#{mainForm.selectedVenue.location.address}" id="address"/>
 
-			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable map"/>
+                <h:outputText value="Zip:"/>
+                <h:outputText value="#{mainForm.selectedVenue.location.postalCode}" id="postalCode"/>
 
-	</ui:define>
+                <h:outputText value="City:"/>
+                <h:outputText value="#{mainForm.selectedVenue.location.city}" id="city"/>
+
+                <h:outputText value="Id:"/>
+                <h:outputText value="#{mainForm.selectedVenue.id}"/>
+
+            </h:panelGrid>
+        </p:dialog>
+        <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialogWidget"
+                  resizable="false" closable="false" width="420" showEffect="explode"
+                  hideEffect="explode" onHide="PF('checkinDialogWidget').hide();">
+            <f:facet name="footer">
+                <p:commandButton value="close" oncomplete="PF('checkinDialogWidget').hide();"/>
+            </f:facet>
+            <p:panelGrid id="checkinDlgPanel" columns="2" columnClasses="ui-g-4, ui-g-8" styleClass="ui-fluid"
+                         layout="grid">
+
+                <h:outputText value="ID:"/>
+                <h:outputText value="#{mainForm.selectedCheckin.id}"/>
+
+                <p:outputLabel for="addressid" value="Address:"/>
+                <h:outputText id="addressid" value="#{mainForm.selectedCheckin.venue.location.address}"/>
+
+                <p:outputLabel for="zipid" value="Zip:"/>
+                <h:outputText id="zipid" value="#{mainForm.selectedCheckin.venue.location.postalCode}"/>
+
+                <p:outputLabel for="cityid" value="City:"/>
+                <h:outputText id="cityid" value="#{mainForm.selectedCheckin.venue.location.city}"/>
+
+                <p:outputLabel for="comment" value="Comment:"/>
+                <h:outputText id="comment" value="#{mainForm.selectedComment}"/>
+
+                <p:outputLabel for="createdAt" value="Created at:"/>
+                <h:outputText id="createdAt" value="#{mainForm.selectedCheckin.createdAt * 1000}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                </h:outputText>
+
+                <p:outputLabel value="Mayor:" for="mayor"/>
+                <h:outputText id="mayor" value="#{mainForm.selectedCheckin.isMayor}"/>
+                <p:outputLabel value="Shout:" for="shout"/>
+                <h:outputText id="shout" value="#{mainForm.selectedCheckin.shout}"/>
+
+                <p:outputLabel for="zone" value="Timezone Offset:"/>
+                <h:outputText id="zone" value="#{mainForm.selectedCheckin.timeZoneOffset}"/>
+
+            </p:panelGrid>
+        </p:dialog>
+        <p:panelGrid id="map" columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid"
+                     styleClass="ui-fluid">
+            <h:form id="mapForm">
+                <p:fieldset legend="Map" toggleable="true">
+                    <p:growl id="messages" showDetail="true" life="2000"/>
+                    <p:gmap id="gmap" center="#{mapForm.coordinates}" zoom="15" type="HYBRID" widgetVar="mapWidget"
+                            style="width:420px;height:300px" model="#{mapForm.model}">
+                        <p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages"/>
+                        <p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();"
+                                update="messages coordinatesform venuetable"/>
+                    </p:gmap>
+                </p:fieldset>
+            </h:form>
+
+            <p:fieldset legend="Categories" toggleable="true" collapsed="false" styleClass="ui-fluid">
+                <h:form>
+                    <p:tree id="tree" value="#{categoriesController.root}" var="node"
+                            selectionMode="single" selection="#{categoriesController.selectedNode}">
+                        <p:ajax event="select" listener="#{categoriesController.onNodeSelect}"
+                                oncomplete="updateRC();"/>
+                        <p:treeNode id="treeNode">
+                            <h:outputText value="#{node}" id="lblNode"/>
+                        </p:treeNode>
+                    </p:tree>
+                </h:form>
+            </p:fieldset>
+        </p:panelGrid>
+
+        <p:ajaxStatus
+                style="width:64px;height:64px;position:fixed;top:5px;left:5px">
+            <f:facet name="start">
+                <p:graphicImage library="img" name="ajax-loader.gif"/>
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value=""/>
+            </f:facet>
+        </p:ajaxStatus>
+
+        <p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable map"/>
+
+    </ui:define>
 </ui:composition>

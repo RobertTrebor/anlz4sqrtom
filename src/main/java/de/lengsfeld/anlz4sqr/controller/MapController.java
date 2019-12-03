@@ -6,6 +6,7 @@ import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.LatLngBounds;
+import org.primefaces.model.map.Marker;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -54,4 +55,7 @@ public class MapController {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
+	public void addMarker(Marker marker){
+		form.getModel().addOverlay(marker);
+	}
 }

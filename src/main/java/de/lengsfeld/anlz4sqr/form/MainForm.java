@@ -34,7 +34,6 @@ public class MainForm implements Serializable {
 	private String concatenatedComments;
 	private Integer view = 0;
 
-	private String coordinates;
 	private String query;
 	private String category;
 
