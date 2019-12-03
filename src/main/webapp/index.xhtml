@@ -122,7 +122,7 @@
 
 								<p:column headerText="Checkins" sortable="true" sortBy="#{checkins.createdAt}" filterBy="#{checkins.createdAt}" >
 									<h:outputText value="#{checkins.createdAt * 1000}">
-										<f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
 									</h:outputText>
 								</p:column>
 
@@ -186,10 +186,14 @@
 
                         <h:outputText value="Comment:" />
                         <h:outputText value="#{mainForm.selectedComment}" />
+                        <h:outputText value="#{mainForm.selectedCheckin.timeZone}"/>
+                        <h:outputText value="#{mainForm.selectedCheckin.createdAt * 1000}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+                        </h:outputText>
 
                     </h:panelGrid>
                 </p:dialog>
-                <p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
+                <p:panelGrid id="map" columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
 					<h:form id="mapForm">
 						<p:fieldset legend="Map" toggleable="true">
 							<p:growl id="messages" showDetail="true" life="2000" />
@@ -225,7 +229,7 @@
 				</f:facet>
 			</p:ajaxStatus>
 
-			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable mapForm"/>
+			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable map"/>
 
 	</ui:define>
 </ui:composition>
