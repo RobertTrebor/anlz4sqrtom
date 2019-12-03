@@ -44,7 +44,7 @@
 
 						<h:form id="venuetableform">
 							<p:dataTable var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
-										 rowKey="#{venue.name}" paginator="true" rows="15"
+										 rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
 										 selection="#{mainForm.selectedVenue}" selectionMode="single">
 
 								<p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();" />
@@ -190,10 +190,10 @@
                     </h:panelGrid>
                 </p:dialog>
                 <p:panelGrid columnClasses="ui-g-12 ui-xl-6, ui-g-12 ui-xl-6" columns="2" layout="grid" styleClass="ui-fluid">
-					<h:form>
+					<h:form id="mapForm">
 						<p:fieldset legend="Map" toggleable="true">
 							<p:growl id="messages" showDetail="true" life="2000" />
-							<p:gmap center="#{mapForm.coordinates}" zoom="15" type="HYBRID"
+							<p:gmap id="gmap" center="#{mapForm.coordinates}" zoom="15" type="HYBRID" widgetVar="mapWidget"
 									style="width:480px;height:300px" model="#{mapForm.model}">
 								<p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages" />
 								<p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();" update="messages coordinatesform venuetable" />
@@ -225,7 +225,7 @@
 				</f:facet>
 			</p:ajaxStatus>
 
-			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable"/>
+			<p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="venuetable mapForm"/>
 
 	</ui:define>
 </ui:composition>

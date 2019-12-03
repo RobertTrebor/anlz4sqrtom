@@ -20,6 +20,7 @@ public class MainForm implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private List<CompactVenue> venues;
+	private Integer numRows = 15;
 	private List<VenueHistory> venueHistories;
 	//private List<de.lengsfeld.anlz4sqr.entity.VenueHistory> venueHistoriesDb;
 	private List<Checkin> checkins;

@@ -7,9 +7,12 @@ import de.lengsfeld.anlz4sqr.form.MapForm;
 import fi.foyt.foursquare.api.FoursquareApiException;
 import fi.foyt.foursquare.api.Result;
 import fi.foyt.foursquare.api.entities.Checkin;
+import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 import org.primefaces.PrimeFaces;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.Marker;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -31,7 +34,7 @@ public class MainController implements Serializable {
 	private MainForm form;
 
 	@Inject
-	private MapForm mapBean;
+	private MapForm mapForm;
 
 	@Inject
 	private CategoriesController categoriesController;
@@ -60,9 +63,15 @@ public class MainController implements Serializable {
 			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
-			form.setCoordinates(mapBean.getCoordinates());
+			form.setCoordinates(mapForm.getCoordinates());
 			Result<VenuesSearchResult> result = fsManager.draw3(form.getCoordinates(), form.getQuery(), form.getCategory());
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
+			for(CompactVenue venue : form.getVenues()) {
+				LatLng latLng = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
+				Marker marker = new Marker(latLng);
+				mapForm.getModel().addOverlay(marker);
+			}
+
 		}
 	}
 
