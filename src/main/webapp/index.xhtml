@@ -219,7 +219,7 @@
                 <p:fieldset legend="Map" toggleable="true">
                     <p:growl id="messages" showDetail="true" life="2000"/>
                     <p:gmap id="gmap" center="#{mapForm.coordinates}" zoom="15" type="HYBRID" widgetVar="mapWidget"
-                            style="width:420px;height:300px" model="#{mapForm.model}">
+                            style="width:380px;height:300px" model="#{mapForm.model}">
                         <p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages"/>
                         <p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();"
                                 update="messages coordinatesform venuetable"/>
