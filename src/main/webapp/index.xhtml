@@ -117,7 +117,8 @@
 
                 <p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
                              selectionMode="single" selection="#{mainForm.selectedCheckin}"
-                             rowKey="#{checkins.id}" paginator="true" rows="15">
+                             scrollable="true" scrollWidth="100%" resizableColumns="true"
+                             rowKey="#{checkins.id}" paginator="true" rows="#{mainForm.numRows}">
 
                     <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
                             oncomplete="PF('checkinDialogWidget').show();"/>
@@ -129,7 +130,7 @@
 
                     <p:column headerText="Checkins" sortable="true" sortBy="#{checkins.createdAt}"
                               filterBy="#{checkins.createdAt}">
-                        <h:outputText value="#{checkins.createdAt * 1000}">
+                        <h:outputText value="#{(checkins.createdAt + checkins.timeZoneOffset * 60) * 1000}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
@@ -205,6 +206,7 @@
 
                 <p:outputLabel value="Mayor:" for="mayor"/>
                 <h:outputText id="mayor" value="#{mainForm.selectedCheckin.isMayor}"/>
+
                 <p:outputLabel value="Shout:" for="shout"/>
                 <h:outputText id="shout" value="#{mainForm.selectedCheckin.shout}"/>
 
