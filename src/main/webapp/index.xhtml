@@ -123,29 +123,43 @@
                     <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
                             oncomplete="PF('checkinDialogWidget').show();"/>
 
-                    <p:column headerText="Id" sortable="true" sortBy="#{checkins.id}"
-                              filterBy="#{checkins.id}">
+                    <p:column sortable="true" sortBy="#{checkins.id}" filterBy="#{checkins.id}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
                         #{checkins.id}
                     </p:column>
 
-                    <p:column headerText="Checkins" sortable="true" sortBy="#{checkins.createdAt}"
+                    <p:column sortable="true" sortBy="#{checkins.createdAt}"
                               filterBy="#{checkins.createdAt}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
                         <h:outputText value="#{(checkins.createdAt + checkins.timeZoneOffset * 60) * 1000}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                         </h:outputText>
                     </p:column>
 
-                    <p:column headerText="Name" sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}">
+                    <p:column sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
                         #{checkins.venue.name}
                     </p:column>
 
                     <p:column headerText="Address" sortBy="#{checkins.venue.location.address}"
                               filterBy="#{checkins.venue.location.address}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
                         #{checkins.venue.location.address}
                     </p:column>
 
                     <p:column headerText="City" sortBy="#{checkins.venue.location.city}"
                               filterBy="#{checkins.venue.location.city}">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
                         #{checkins.venue.location.city}
                     </p:column>
                 </p:dataTable>
