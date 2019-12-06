@@ -128,7 +128,7 @@
 
                 <p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
                              selectionMode="single" selection="#{mainForm.selectedCheckin}"
-                             scrollable="true" scrollWidth="100%" resizableColumns="true"
+                             resizableColumns="true"
                              rowKey="#{checkins.id}" paginator="true" rows="#{mainForm.numRows}">
 
                     <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
@@ -254,7 +254,7 @@
                 </p:fieldset>
             </h:form>
 
-            <p:fieldset legend="Categories" toggleable="true" collapsed="false" styleClass="ui-fluid">
+            <p:fieldset legend="Categories" toggleable="true" collapsed="false">
                 <h:form>
                     <p:tree id="tree" value="#{categoriesController.root}" var="node"
                             selectionMode="single" selection="#{categoriesController.selectedNode}">

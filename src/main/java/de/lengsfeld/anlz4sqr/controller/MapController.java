@@ -5,7 +5,6 @@ import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.event.map.StateChangeEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
-import org.primefaces.model.map.LatLngBounds;
 import org.primefaces.model.map.Marker;
 
 import javax.annotation.PostConstruct;
@@ -28,6 +27,7 @@ public class MapController {
 	}
 
 	public void onStateChange(StateChangeEvent event) {
+		/*
 		LatLngBounds bounds = event.getBounds();
 		int zoomLevel = event.getZoomLevel();
 
@@ -39,6 +39,7 @@ public class MapController {
 				bounds.getNorthEast().toString()));
 		addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "SouthWest",
 				bounds.getSouthWest().toString()));
+				*/
 	}
 
 	public void onPointSelect(PointSelectEvent event) {
