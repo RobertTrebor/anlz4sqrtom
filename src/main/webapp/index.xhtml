@@ -46,12 +46,23 @@
         <p:panelGrid id="venuetable" columnClasses="ui-g-12" columns="1" styleClass="ui-fluid">
 
             <h:form id="venuetableform">
-                <p:dataTable var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
+                <style type="text/css">
+                    .ui-datatable-header { height: 40px}
+                </style>
+                <p:dataTable id="venues" var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
                              rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
                              selection="#{mainForm.selectedVenue}" selectionMode="single">
 
                     <p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();"/>
-                    <f:facet name="header">Venue List</f:facet>
+
+                    <f:facet name="header">
+                        <h:outputText value="Venues"/>
+                        <p:commandButton id="venueToggler" type="button" value="Columns"
+                                         style="float:right; width: 120px"
+                                         icon="pi pi-align-justify"/>
+                        <p:columnToggler trigger="venueToggler" datasource="venues"/>
+                    </f:facet>
+
                     <p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">
                         #{venue.name}
                     </p:column>
