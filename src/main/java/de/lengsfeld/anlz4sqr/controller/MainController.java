@@ -109,15 +109,10 @@ public class MainController implements Serializable {
 
 	public void loadCheckins(){
 		form.setView(3);
-		List<Checkin> checkins = fsManager.checkinHistory(form.getNumCheckins());
-		form.setNumCheckinsLoaded(form.getNumCheckins());
-        if(form.getCheckinsWithComments()){
-            checkins = loadCheckinsWithComments(checkins);
-        }
-		form.setCheckins(checkins);
+		loadMoreCheckins();
 	}
 
-	public void loadMoreCheckins(){
+	private void loadMoreCheckins(){
         form.setCheckins(loadCheckinsOffset());
         form.setNumCheckinsLoaded((form.getNumCheckinsLoaded() + form.getNumCheckins()));
     }

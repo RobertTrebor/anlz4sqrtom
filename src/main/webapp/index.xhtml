@@ -16,19 +16,14 @@
             <p:panelGrid columns="3"
                          columnClasses="ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-xl-4"
                          layout="grid" rendered="#{mainController.isAuthenticated()}">
-                <p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6">
-                    <p:panelGrid>
-                        <p:inputNumber value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
-                        <p:inputNumber value="#{mainForm.numCheckins}" decimalPlaces="0"/>
-                        <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
-                        <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
-                    </p:panelGrid>
-                    <p:panelGrid>
-                        <p:commandButton action="#{mainController.loadCheckins()}" value="Checkins"
-                                         update="@(form) venuetable"/>
-                        <p:commandButton action="#{mainController.loadMoreCheckins()}" value="More"
-                                         update="@(form) venuetable" disabled="#{(mainForm.numCheckinsLoaded) eq 0}"/>
-                    </p:panelGrid>
+                <p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6" layout="grid">
+                    <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
+                    <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
+                    <p:outputLabel for="numToLoad" value="Load:"/>
+                    <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}" decimalPlaces="0"/>
+                    <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
+                    <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
+                    <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins" update="@(form) venuetable"/>
                 </p:panelGrid>
                 <p:panelGrid>
                     <p:commandButton action="#{mainController.load()}" value="Load Venues" update="venuetable"/>
