@@ -13,13 +13,10 @@
         <f:event listener="#{mainController.onStart()}" type="preRenderView"/>
 
         <h:form id="foursquare">
-            <p:tabView>
+            <p:tabView style=".ui-tabs .ui-tabs-panel">
+
                 <p:ajax event="tabChange" listener="#{mainController.onTabChange}"/>
-                <p:tab title="Venues" id="venuetable" >
-                    <p:panelGrid columns="3"
-                                 columnClasses="ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-md-6 ui-xl-4, ui-g-12 ui-xl-4"
-                                 layout="grid" rendered="#{mainController.isAuthenticated()}">
-                    </p:panelGrid>
+                <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
                         .ui-datatable-header { height: 40px}
                     </style>
