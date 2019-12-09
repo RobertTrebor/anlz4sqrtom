@@ -11,6 +11,8 @@ import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
 
@@ -54,6 +56,13 @@ public class MainController implements Serializable {
 	public void onStart(){
 
     }
+
+    public void onTabChange(TabChangeEvent event){
+		Tab tab = event.getTab();
+		if(tab.isLoaded()){
+			String s = tab.getTitle();
+		}
+	}
 
 	public void load(){
 		form.setView(0);
