@@ -10,27 +10,31 @@ import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Named
 @RequestScoped
-public class MainController implements Serializable {
+public class MainController implements Serializable
+{
+
+	private final static String VENUES = "Venues";
+	private final static String HISTORY = "History";
+	private final static String CHECKINS = "Checkins";
 
 	@Inject
-    private FSConnectWeb fsConnect;
+	private FSConnectWeb fsConnect;
 
 	@Inject
 	private MainForm form;
@@ -59,8 +63,22 @@ public class MainController implements Serializable {
 
     public void onTabChange(TabChangeEvent event){
 		Tab tab = event.getTab();
-		if(tab.isLoaded()){
-			String s = tab.getTitle();
+		if(tab.isLoaded())
+		{
+			String title = tab.getTitle();
+			switch (title)
+			{
+				case VENUES:
+					switchView(1);
+					break;
+				case HISTORY:
+					switchView(2);
+					break;
+				case CHECKINS:
+					switchView(3);
+					break;
+			}
+			update();
 		}
 	}
 
