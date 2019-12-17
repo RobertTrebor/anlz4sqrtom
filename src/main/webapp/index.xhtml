@@ -15,7 +15,7 @@
         <h:form id="foursquare">
             <p:tabView style=".ui-tabs .ui-tabs-panel">
 
-                <p:ajax event="tabChange" listener="#{mainController.onTabChange}" update="updateRC();"/>
+                <p:ajax event="tabChange" listener="#{mainController.onTabChange}" oncomplete="updateRC();"/>
                 <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
                         .ui-datatable-header { height: 40px}
