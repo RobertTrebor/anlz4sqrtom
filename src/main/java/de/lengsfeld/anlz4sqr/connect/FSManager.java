@@ -7,7 +7,6 @@ import fi.foyt.foursquare.api.entities.*;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -93,7 +92,7 @@ public class FSManager {
 	public Result<VenueHistoryGroup> venueHistory() {
 		Result<VenueHistoryGroup> result = null;
 		try {
-			result = foursquareApi.usersVenueHistory("self", new Date().getTime(), 0L);
+			result = foursquareApi.usersVenueHistory("self", null, null);
 		} catch (FoursquareApiException e) {
 			logger.log(Level.ALL, e.getMessage());
 		}
@@ -107,7 +106,7 @@ public class FSManager {
 	public List<Checkin> checkinHistory(int limit, int offset){
 		List<Checkin> list = null;
 		try {
-			Result<CheckinGroup> result = foursquareApi.usersCheckins("self", limit, offset,0L, new Date().getTime());
+			Result<CheckinGroup> result = foursquareApi.usersCheckins("self", limit, offset,null, null);
 			list = Arrays.asList(result.getResult().getItems());
 		} catch (FoursquareApiException e) {
 			logger.log(Level.ALL, e.getMessage());
