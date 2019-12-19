@@ -26,7 +26,6 @@
                     <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins" update="@(form) venuetable"/>
                 </p:panelGrid>
                 <p:panelGrid>
-                    <p:commandButton action="#{mainController.load()}" value="Load Venues" update="venuetable"/>
                     <p:commandButton action="#{mainController.loadHistory()}" value="History" update="venuetable"/>
                 </p:panelGrid>
                 <p:panelGrid rendered="false">
@@ -121,13 +120,21 @@
                     </p:column>
                 </p:dataTable>
 
-                <p:dataTable var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
+                <p:dataTable id="checkins" var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
                              selectionMode="single" selection="#{mainForm.selectedCheckin}"
                              resizableColumns="true"
                              rowKey="#{checkins.id}" paginator="true" rows="#{mainForm.numRows}">
 
                     <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
                             oncomplete="PF('checkinDialogWidget').show();"/>
+
+                    <f:facet name="header">
+                        <h:outputText value="Checkins"/>
+                        <p:commandButton id="checkinsToggler" type="button" value="Columns"
+                                         style="float:right; width: 120px"
+                                         icon="pi pi-align-justify"/>
+                        <p:columnToggler trigger="checkinsToggler" datasource="checkins"/>
+                    </f:facet>
 
                     <p:column sortable="true" sortBy="#{checkins.id}" filterBy="#{checkins.id}">
                         <f:facet name="header">
@@ -139,7 +146,7 @@
                     <p:column sortable="true" sortBy="#{checkins.createdAt}"
                               filterBy="#{checkins.createdAt}">
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
+                            <h:outputText value="Time"/>
                         </f:facet>
                         <h:outputText value="#{(checkins.createdAt + checkins.timeZoneOffset * 60) * 1000}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
@@ -148,7 +155,7 @@
 
                     <p:column sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}">
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
+                            <h:outputText value="Name"/>
                         </f:facet>
                         #{checkins.venue.name}
                     </p:column>
@@ -156,7 +163,7 @@
                     <p:column headerText="Address" sortBy="#{checkins.venue.location.address}"
                               filterBy="#{checkins.venue.location.address}">
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
+                            <h:outputText value="Address"/>
                         </f:facet>
                         #{checkins.venue.location.address}
                     </p:column>
@@ -164,7 +171,7 @@
                     <p:column headerText="City" sortBy="#{checkins.venue.location.city}"
                               filterBy="#{checkins.venue.location.city}">
                         <f:facet name="header">
-                            <h:outputText value="Id"/>
+                            <h:outputText value="City"/>
                         </f:facet>
                         #{checkins.venue.location.city}
                     </p:column>
@@ -175,7 +182,7 @@
                   resizable="false" width="420" showEffect="explode" onHide="PF('venueDialogWidget').hide();"
                   hideEffect="explode" position="center center">
             <f:facet name="footer">
-                <p:commandButton value="close" oncomplete="PF('venueDialogWidget').hide();"/>
+                <p:commandButton value="Close" oncomplete="PF('venueDialogWidget').hide();"/>
             </f:facet>
             <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
                 <h:outputText value="Name:"/>
@@ -193,13 +200,16 @@
                 <h:outputText value="Id:"/>
                 <h:outputText value="#{mainForm.selectedVenue.id}"/>
 
+                <p:outputLabel for="rating" value="Rating"/>
+                <h:outputText id="rating" value="#{mainForm.selectedVenue.rating}"/>
+
             </h:panelGrid>
         </p:dialog>
         <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialogWidget"
                   resizable="false" closable="false" width="420" showEffect="explode"
                   hideEffect="explode" onHide="PF('checkinDialogWidget').hide();">
             <f:facet name="footer">
-                <p:commandButton value="close" oncomplete="PF('checkinDialogWidget').hide();"/>
+                <p:commandButton value="Close" oncomplete="PF('checkinDialogWidget').hide();"/>
             </f:facet>
             <p:panelGrid id="checkinDlgPanel" columns="2" columnClasses="ui-g-4, ui-g-8" styleClass="ui-fluid"
                          layout="grid">
@@ -220,7 +230,7 @@
                 <h:outputText id="comment" value="#{mainForm.selectedComment}"/>
 
                 <p:outputLabel for="createdAt" value="Created at:"/>
-                <h:outputText id="createdAt" value="#{mainForm.selectedCheckin.createdAt * 1000}">
+                <h:outputText id="createdAt" value="#{(mainForm.selectedCheckin.createdAt + mainForm.selectedCheckin.timeZoneOffset * 60) * 1000}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                 </h:outputText>
 
@@ -229,9 +239,6 @@
 
                 <p:outputLabel value="Shout:" for="shout"/>
                 <h:outputText id="shout" value="#{mainForm.selectedCheckin.shout}"/>
-
-                <p:outputLabel for="zone" value="Timezone Offset:"/>
-                <h:outputText id="zone" value="#{mainForm.selectedCheckin.timeZoneOffset}"/>
 
             </p:panelGrid>
         </p:dialog>
