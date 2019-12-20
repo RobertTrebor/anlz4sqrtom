@@ -20,7 +20,8 @@
                     <style type="text/css">
                         .ui-datatable-header { height: 40px}
                     </style>
-                    <p:dataTable id="venues" var="venue" value="#{mainForm.venues}" rendered="#{mainForm.view == 0}"
+                    <p:dataTable id="venues" var="venue" value="#{mainForm.venues}"
+                                 rendered="#{mainForm.tabName.name eq 'Venues'}"
                                  rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
                                  selection="#{mainForm.selectedVenue}" selectionMode="single">
 
@@ -52,7 +53,8 @@
                     <p:panelGrid>
                         <p:commandButton action="#{mainController.loadHistory()}" value="History" update="@(form)"/>
                     </p:panelGrid>
-                    <p:dataTable var="history" value="#{mainForm.venueHistories}" rendered="#{mainForm.view == 1}"
+                    <p:dataTable var="history" value="#{mainForm.venueHistories}"
+                                 rendered="#{mainForm.tabName.name eq 'History'}"
                                  rowKey="#{venue.name}" paginator="true" rows="15">
 
                         <p:column headerText="Checkins" sortBy="Checkins" filterBy="name">
@@ -82,7 +84,8 @@
                         <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
                         <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins" update="@(form)"/>
                     </p:panelGrid>
-                    <p:dataTable id="checkins" var="checkins" value="#{mainForm.checkins}" rendered="#{mainForm.view == 3}"
+                    <p:dataTable id="checkins" var="checkins" value="#{mainForm.checkins}"
+                                 rendered="#{mainForm.tabName.name eq 'Checkins'}"
                                  selectionMode="single" selection="#{mainForm.selectedCheckin}"
                                  resizableColumns="true"
                                  rowKey="#{checkins.id}" paginator="true" rows="#{mainForm.numRows}">

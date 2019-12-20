@@ -1,5 +1,6 @@
 package de.lengsfeld.anlz4sqr.controller;
 
+import de.lengsfeld.anlz4sqr.TabName;
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
 import de.lengsfeld.anlz4sqr.form.MainForm;
@@ -10,28 +11,25 @@ import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
 import org.primefaces.PrimeFaces;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Named
 @RequestScoped
 public class MainController implements Serializable
 {
-
-	private final static String VENUES = "Venues";
-	private final static String HISTORY = "History";
-	private final static String CHECKINS = "Checkins";
 
 	@Inject
 	private FSConnectWeb fsConnect;
@@ -51,51 +49,56 @@ public class MainController implements Serializable
     private FSManager fsManager;
 
 	@PostConstruct
-    public void init(){
-        System.setProperty("java.net.useSystemProxies", "true");
-	    fsManager = new FSManager(fsConnect.getFoursquareApi());
-    }
-
-
-	public void onStart(){
-
-    }
-
-    public void onTabChange(TabChangeEvent event){
-		Tab tab = event.getTab();
-		if(tab.isLoaded())
-		{
-			String title = tab.getTitle();
-			switch (title)
-			{
-				case VENUES:
-					switchView(1);
-					break;
-				case HISTORY:
-					switchView(2);
-					break;
-				case CHECKINS:
-					switchView(3);
-					break;
-			}
-			update();
-		}
+	public void init() {
+		System.setProperty("java.net.useSystemProxies", "true");
+		fsManager = new FSManager(fsConnect.getFoursquareApi());
 	}
 
-	public void load(){
-		form.setView(0);
+
+	public void onStart() {
+
+	}
+
+	public void reset() {
+		form.reset();
 		update();
 	}
 
+	public void onTabChange(TabChangeEvent event) {
+		Tab tab = event.getTab();
+		form.setTabName(TabName.fromString(tab.getTitle()));
+		//update();
+	}
+
+	public void update() {
+		switch (form.getTabName()) {
+			case VENUES:
+				if (form.getVenues() == null || form.getVenues().isEmpty()) {
+					loadResult();
+				}
+				break;
+			case HISTORY:
+				if (form.getVenueHistories() == null || form.getVenueHistories().isEmpty()) {
+					loadHistory();
+				}
+				break;
+			case CHECKINS:
+				if (form.getCheckins() == null || form.getCheckins().isEmpty()) {
+					loadCheckins();
+				}
+				break;
+		}
+	}
+
 	public void loadResult() {
-		if(form.getView() == 0) {
+		if (form.getTabName().equals(TabName.VENUES)) {
 			form.setCategory(categoriesController.getCategoryId());
 			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
 			Result<VenuesSearchResult> result = fsManager.draw3(mapForm.getCoordinates(), form.getQuery(), form.getCategory());
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
-			for(CompactVenue venue : form.getVenues()) {
+			for (CompactVenue venue : form.getVenues()) {
 				LatLng latLng = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
 				Marker marker = new Marker(latLng);
 				mapController.addMarker(marker);
@@ -104,7 +107,6 @@ public class MainController implements Serializable
 	}
 
 	public void loadHistory(){
-		form.setView(1);
 		Result<VenueHistoryGroup> result = fsManager.venueHistory();
 		if(result != null) {
 			VenueHistoryGroup venueHistoryGroup = result.getResult();
@@ -112,30 +114,7 @@ public class MainController implements Serializable
 		}
 	}
 
-	public void switchView(Integer view){
-		form.setView(view);
-	}
-
-	public void update(){
-		int view = form.getView();
-		switch(view){
-			case 0:
-				loadResult();
-				break;
-			case 1:
-				loadHistory();
-				break;
-			case 2:
-				//loadFromDb();
-				break;
-			case 3:
-				loadCheckins();
-				break;
-		}
-	}
-
 	public void loadCheckins(){
-		form.setView(3);
 		loadMoreCheckins();
 	}
 
