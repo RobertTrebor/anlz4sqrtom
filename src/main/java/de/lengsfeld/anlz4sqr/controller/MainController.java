@@ -67,7 +67,7 @@ public class MainController implements Serializable
 	public void onTabChange(TabChangeEvent event) {
 		Tab tab = event.getTab();
 		form.setTabName(TabName.fromString(tab.getTitle()));
-		//update();
+		update();
 	}
 
 	public void update() {
