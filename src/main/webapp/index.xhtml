@@ -78,14 +78,17 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Checkins" disabled="#{!mainController.isAuthenticated()}">
-                    <p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6" layout="grid">
+                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6" layout="grid">
                         <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
                         <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0"
                                        disabled="true"/>
                         <p:outputLabel for="numToLoad" value="Load:"/>
                         <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}" decimalPlaces="0"/>
-                        <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
-                        <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
+                        <p:panelGrid columns="2" columnClasses="ui-g-2, ui-g-10" layout="grid" styleClass="ui-noborder">
+                            <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
+                            <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
+                        </p:panelGrid>
+
                         <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
                                          update="checkinTable"/>
                     </p:panelGrid>
