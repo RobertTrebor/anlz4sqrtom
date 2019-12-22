@@ -13,12 +13,14 @@
         <f:event listener="#{mainController.onStart()}" type="preRenderView"/>
 
         <h:form id="foursquare">
-            <p:tabView style=".ui-tabs .ui-tabs-panel">
+            <p:tabView id="tabView" style=".ui-tabs .ui-tabs-panel">
 
-                <p:ajax event="tabChange" listener="#{mainController.onTabChange}" update="@(form)"/>
+                <p:ajax event="tabChange" listener="#{mainController.onTabChange}" update="tabView"/>
                 <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
-                        .ui-datatable-header { height: 40px}
+                        .ui-datatable-header {
+                            height: 40px
+                        }
                     </style>
                     <p:dataTable id="venues" var="venue" value="#{mainForm.venues}"
                                  rendered="#{mainForm.tabName.name eq 'Venues'}"
@@ -51,9 +53,10 @@
                 </p:tab>
                 <p:tab title="History" disabled="#{!mainController.isAuthenticated()}">
                     <p:panelGrid>
-                        <p:commandButton action="#{mainController.loadHistory()}" value="History" update="@(form)"/>
+                        <p:commandButton action="#{mainController.loadHistory()}" value="History"
+                                         update="historyTable"/>
                     </p:panelGrid>
-                    <p:dataTable var="history" value="#{mainForm.venueHistories}"
+                    <p:dataTable id="historyTable" var="history" value="#{mainForm.venueHistories}"
                                  rendered="#{mainForm.tabName.name eq 'History'}"
                                  rowKey="#{venue.name}" paginator="true" rows="15">
 
@@ -77,14 +80,16 @@
                 <p:tab title="Checkins" disabled="#{!mainController.isAuthenticated()}">
                     <p:panelGrid columns="2" columnClasses="ui-g-6, ui-g-6" layout="grid">
                         <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
-                        <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0" disabled="true"/>
+                        <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0"
+                                       disabled="true"/>
                         <p:outputLabel for="numToLoad" value="Load:"/>
                         <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}" decimalPlaces="0"/>
                         <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
                         <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
-                        <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins" update="@(form)"/>
+                        <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
+                                         update="checkinTable"/>
                     </p:panelGrid>
-                    <p:dataTable id="checkins" var="checkins" value="#{mainForm.checkins}"
+                    <p:dataTable id="checkinTable" var="checkins" value="#{mainForm.checkins}"
                                  rendered="#{mainForm.tabName.name eq 'Checkins'}"
                                  selectionMode="single" selection="#{mainForm.selectedCheckin}"
                                  resizableColumns="true"
