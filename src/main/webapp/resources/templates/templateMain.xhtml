@@ -101,6 +101,7 @@
                                     </p:panelGrid>
                                     <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
                                                      update="checkinsDropdown"
+                                                     disabled="#{!mainController.authenticated()}"
                                                      oncomplete="updateRC();"/>
                                 </p:panelGrid>
                                 <a class="dropdown-item" href="#"/>
