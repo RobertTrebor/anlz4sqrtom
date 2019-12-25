@@ -58,16 +58,22 @@
                                         <p:outputLabel for="latitude" value="Latitude: " styleClass="dropdown-item"/>
                                         <p:inputText id="latitude" value="#{mapForm.latitude}"
                                                      valueChangeListener="#{mainController.venueQueryChanged()}">
-                                            <f:ajax event="change" update="main"/>
+                                            <f:ajax event="change" update="@this"/>
                                         </p:inputText>
                                     </li>
                                     <li class="dropdown-item">
                                         <p:outputLabel for="longitude" value="Longitude: " styleClass="dropdown-item"/>
-                                        <p:inputText id="longitude" value="#{mapForm.longitude}"/>
+                                        <p:inputText id="longitude" value="#{mapForm.longitude}"
+                                                     valueChangeListener="#{mainController.venueQueryChanged()}">
+                                            <f:ajax event="change" update="@this"/>
+                                        </p:inputText>
                                     </li>
                                     <li class="dropdown-item">
                                         <p:outputLabel for="query" value="Query: " styleClass="dropdown-item"/>
-                                        <p:inputText id="query" value="#{mainForm.query}"/>
+                                        <p:inputText id="query" value="#{mainForm.query}"
+                                                     valueChangeListener="#{mainController.venueQueryChanged()}">
+                                            <f:ajax event="change" update="@this"/>
+                                        </p:inputText>
                                     </li>
                                 </ul>
                                 <a class="dropdown-item" href="#"/>
@@ -79,7 +85,8 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarCheckinsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Checkins</a>
                             <div class="dropdown-menu" aria-labelledby="navbarCheckinsDropdown">
-                                <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6" layout="grid">
+                                <p:panelGrid id="checkinsDropdown" columns="2"
+                                             columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6" layout="grid">
                                     <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
                                     <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}"
                                                    decimalPlaces="0"
@@ -93,6 +100,7 @@
                                         <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
                                     </p:panelGrid>
                                     <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
+                                                     update="checkinsDropdown"
                                                      oncomplete="updateRC();"/>
                                 </p:panelGrid>
                                 <a class="dropdown-item" href="#"/>
