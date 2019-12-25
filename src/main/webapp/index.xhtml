@@ -14,7 +14,6 @@
 
         <h:form id="foursquare">
             <p:tabView id="tabView" style=".ui-tabs .ui-tabs-panel">
-
                 <p:ajax event="tabChange" listener="#{mainController.onTabChange}" update="tabView"/>
                 <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
@@ -26,9 +25,7 @@
                                  rendered="#{mainForm.tabName.name eq 'Venues'}"
                                  rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
                                  selection="#{mainForm.selectedVenue}" selectionMode="single">
-
                         <p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();"/>
-
                         <f:facet name="header">
                             <h:outputText value="Venues"/>
                             <p:commandButton id="venueToggler" type="button" value="Columns"
@@ -36,16 +33,13 @@
                                              icon="pi pi-align-justify"/>
                             <p:columnToggler trigger="venueToggler" datasource="venues"/>
                         </f:facet>
-
                         <p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">
                             #{venue.name}
                         </p:column>
-
                         <p:column headerText="Address" sortBy="address" sortable="true" filterBy="address"
                                   id="titleaddress">
                             #{venue.location.address}
                         </p:column>
-
                         <p:column headerText="City" sortBy="city" filterBy="city" id="titlecity">
                             #{venue.location.city}
                         </p:column>
@@ -59,48 +53,28 @@
                     <p:dataTable id="historyTable" var="history" value="#{mainForm.venueHistories}"
                                  rendered="#{mainForm.tabName.name eq 'History'}"
                                  rowKey="#{venue.name}" paginator="true" rows="15">
-
                         <p:column headerText="Checkins" sortBy="Checkins" filterBy="name">
                             #{history.beenHere}
                         </p:column>
-
                         <p:column headerText="Name" sortBy="name" filterBy="name">
                             #{history.venue.name}
                         </p:column>
-
                         <p:column headerText="Address" sortBy="address" filterBy="address">
                             #{history.venue.location.address}
                         </p:column>
-
                         <p:column headerText="City" sortBy="city" filterBy="city">
                             #{history.venue.location.city}
                         </p:column>
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="Checkins" disabled="#{!mainController.isAuthenticated()}">
-                    <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6" layout="grid">
-                        <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
-                        <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}" decimalPlaces="0"
-                                       disabled="true"/>
-                        <p:outputLabel for="numToLoad" value="Load:"/>
-                        <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}" decimalPlaces="0"/>
-                        <p:panelGrid columns="2" columnClasses="ui-g-2, ui-g-10" layout="grid" styleClass="ui-noborder">
-                            <p:selectBooleanCheckbox id="commentsCheckbox" value="#{mainForm.checkinsWithComments}"/>
-                            <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
-                        </p:panelGrid>
-
-                        <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
-                                         update="checkinTable"/>
-                    </p:panelGrid>
                     <p:dataTable id="checkinTable" var="checkins" value="#{mainForm.checkins}"
                                  rendered="#{mainForm.tabName.name eq 'Checkins'}"
                                  selectionMode="single" selection="#{mainForm.selectedCheckin}"
                                  resizableColumns="true"
                                  rowKey="#{checkins.id}" paginator="true" rows="#{mainForm.numRows}">
-
                         <p:ajax event="rowSelect" update="checkingDlg" listener="#{mainController.retrieveComment()}"
                                 oncomplete="PF('checkinDialogWidget').show();"/>
-
                         <f:facet name="header">
                             <h:outputText value="Checkins"/>
                             <p:commandButton id="checkinsToggler" type="button" value="Columns"
@@ -108,14 +82,12 @@
                                              icon="pi pi-align-justify"/>
                             <p:columnToggler trigger="checkinsToggler" datasource="checkinTable"/>
                         </f:facet>
-
                         <p:column sortable="true" sortBy="#{checkins.id}" filterBy="#{checkins.id}">
                             <f:facet name="header">
                                 <h:outputText value="Id"/>
                             </f:facet>
                             #{checkins.id}
                         </p:column>
-
                         <p:column sortable="true" sortBy="#{checkins.createdAt}"
                                   filterBy="#{checkins.createdAt}">
                             <f:facet name="header">
@@ -125,14 +97,12 @@
                                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
                             </h:outputText>
                         </p:column>
-
                         <p:column sortBy="#{checkins.venue.name}" filterBy="#{checkins.venue.name}">
                             <f:facet name="header">
                                 <h:outputText value="Name"/>
                             </f:facet>
                             #{checkins.venue.name}
                         </p:column>
-
                         <p:column headerText="Address" sortBy="#{checkins.venue.location.address}"
                                   filterBy="#{checkins.venue.location.address}">
                             <f:facet name="header">
@@ -140,7 +110,6 @@
                             </f:facet>
                             #{checkins.venue.location.address}
                         </p:column>
-
                         <p:column headerText="City" sortBy="#{checkins.venue.location.city}"
                                   filterBy="#{checkins.venue.location.city}">
                             <f:facet name="header">
@@ -151,7 +120,6 @@
                     </p:dataTable>
                 </p:tab>
             </p:tabView>
-
         </h:form>
 
         <p:dialog header="Venue Details" widgetVar="venueDialogWidget" closable="false" id="venueDialog"

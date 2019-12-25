@@ -70,6 +70,12 @@ public class MainController implements Serializable
 		update();
 	}
 
+	public void venueQueryChanged() {
+		form.setTabName(TabName.VENUES);
+		form.setVenues(null);
+		update();
+	}
+
 	public void update() {
 		switch (form.getTabName()) {
 			case VENUES:
@@ -115,6 +121,7 @@ public class MainController implements Serializable
 	}
 
 	public void loadCheckins(){
+		form.setTabName(TabName.CHECKINS);
 		loadMoreCheckins();
 	}
 

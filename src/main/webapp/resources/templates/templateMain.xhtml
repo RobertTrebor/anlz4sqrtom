@@ -29,32 +29,8 @@
 
     <h:body>
         <h:form id="coordinatesform">
-            <div class="pos-f-t">
-                <div class="collapse" id="navbarToggleExternalContent">
-                    <ul>
-                        <li class="nav-item">
-                            <p:outputLabel for="latitude" value="Latitude: " styleClass="nav-link"/>
-                            <p:inputText id="latitude" value="#{mapForm.latitude}"
-                                         valueChangeListener="#{mainController.update()}">
-                                <f:ajax event="change" listener="#{mainController.update()}"/>
-                            </p:inputText>
-                        </li>
-                        <li class="nav-item">
-                            <p:outputLabel for="longitude" value="Longitude: " styleClass="nav-link"/>
-                            <p:inputText id="longitude" value="#{mapForm.longitude}"/>
-                        </li>
-                        <li class="nav-item">
-                            <p:outputLabel for="query" value="Query: " styleClass="nav-link"/>
-                            <p:inputText id="query" value="#{mainForm.query}"/>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
             <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
                 <a class="navbar-brand" style="color:blueviolet">Anlz4sqr</a>
-
-
                 <div class="navbar" id="navbar">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -62,30 +38,63 @@
                                              value="Reset" oncomplete="updateRC();"/>
                         </li>
                     </ul>
-
                 </div>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
-
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                    data-target="#navbarToggleExternalContent"
-                                    aria-controls="navbarToggleExternalContent" aria-expanded="false"
-                                    aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"/>
-                            </button>
-                        </li>
                         <li class="nav-item">
                             <p:commandButton class="btn-danger" action="#{authorizationController.connect()}"
                                              ajax="false" value="Authenticate"/>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button">Options</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarVenuesDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Venues</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarVenuesDropdown">
+                                <ul class="dropdown-item">
+                                    <li class="dropdown-item">
+                                        <p:outputLabel for="latitude" value="Latitude: " styleClass="dropdown-item"/>
+                                        <p:inputText id="latitude" value="#{mapForm.latitude}"
+                                                     valueChangeListener="#{mainController.venueQueryChanged()}">
+                                            <f:ajax event="change" update="main"/>
+                                        </p:inputText>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <p:outputLabel for="longitude" value="Longitude: " styleClass="dropdown-item"/>
+                                        <p:inputText id="longitude" value="#{mapForm.longitude}"/>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <p:outputLabel for="query" value="Query: " styleClass="dropdown-item"/>
+                                        <p:inputText id="query" value="#{mainForm.query}"/>
+                                    </li>
+                                </ul>
+                                <a class="dropdown-item" href="#"/>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#"/>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarCheckinsDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Checkins</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarCheckinsDropdown">
+                                <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-6, ui-g-12 ui-md-6" layout="grid">
+                                    <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
+                                    <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}"
+                                                   decimalPlaces="0"
+                                                   disabled="true"/>
+                                    <p:outputLabel for="numToLoad" value="Load:"/>
+                                    <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}" decimalPlaces="0"/>
+                                    <p:panelGrid columns="2" columnClasses="ui-g-2, ui-g-10" layout="grid"
+                                                 styleClass="ui-noborder">
+                                        <p:selectBooleanCheckbox id="commentsCheckbox"
+                                                                 value="#{mainForm.checkinsWithComments}"/>
+                                        <p:outputLabel for="commentsCheckbox" value="  Commented Only"/>
+                                    </p:panelGrid>
+                                    <p:commandButton action="#{mainController.loadCheckins()}" value="Load Checkins"
+                                                     oncomplete="updateRC();"/>
+                                </p:panelGrid>
                                 <a class="dropdown-item" href="#"/>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#"/>
@@ -96,7 +105,7 @@
             </nav>
         </h:form>
 
-        <div class="ui-fluid">
+        <div class="ui-fluid" id="main">
             <ui:insert name="main"/>
         </div>
 
