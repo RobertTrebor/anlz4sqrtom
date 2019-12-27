@@ -9,6 +9,10 @@ body {
     background-color: #CCCCFF;
 }
 
+.ui-tabs .ui-tabs-panel{
+    padding: 0 !important;
+}
+
 
 .rltitle {
     font-size: 36;

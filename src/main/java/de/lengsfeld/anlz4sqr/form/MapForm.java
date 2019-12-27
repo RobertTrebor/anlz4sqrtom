@@ -13,12 +13,17 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class MapForm implements Serializable {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private MapModel model;
 	private String latitude = "52.531227";
 	private String longitude = "13.403921";
+
+	public void reset() {
+		latitude = "52.531227";
+		longitude = "13.403921";
+	}
 
 	public String getCoordinates() {
 		return latitude + "," + longitude;

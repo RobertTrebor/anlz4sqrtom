@@ -1,5 +1,6 @@
 package de.lengsfeld.anlz4sqr.controller;
 
+import de.lengsfeld.anlz4sqr.TabName;
 import de.lengsfeld.anlz4sqr.connect.FSConnectWeb;
 import de.lengsfeld.anlz4sqr.connect.FSManager;
 import de.lengsfeld.anlz4sqr.form.MainForm;
@@ -11,6 +12,8 @@ import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistoryGroup;
 import fi.foyt.foursquare.api.entities.VenuesSearchResult;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.Marker;
 
@@ -25,10 +28,11 @@ import java.util.List;
 
 @Named
 @RequestScoped
-public class MainController implements Serializable {
+public class MainController implements Serializable
+{
 
 	@Inject
-    private FSConnectWeb fsConnect;
+	private FSConnectWeb fsConnect;
 
 	@Inject
 	private MainForm form;
@@ -45,30 +49,63 @@ public class MainController implements Serializable {
     private FSManager fsManager;
 
 	@PostConstruct
-    public void init(){
-        System.setProperty("java.net.useSystemProxies", "true");
-	    fsManager = new FSManager(fsConnect.getFoursquareApi());
-    }
+	public void init() {
+		System.setProperty("java.net.useSystemProxies", "true");
+		fsManager = new FSManager(fsConnect.getFoursquareApi());
+	}
 
 
-	public void onStart(){
+	public void onStart() {
 
-    }
+	}
 
-	public void load(){
-		form.setView(0);
-		update();
+	public void reset() {
+		form.reset();
+		mapForm.reset();
+	}
+
+	public void onTabChange(TabChangeEvent event) {
+		Tab tab = event.getTab();
+		form.setTabName(TabName.fromString(tab.getTitle()));
+	}
+
+	public void venueQueryChanged() {
+		form.setTabName(TabName.VENUES);
+		form.setVenues(null);
+	}
+
+
+	public void update() {
+		switch (form.getTabName()) {
+			case VENUES:
+				if (form.getVenues() == null || form.getVenues().isEmpty()) {
+					loadResult();
+				}
+				PrimeFaces.current().executeScript("PF('tabViewWidget').select(0)");
+				break;
+			case HISTORY:
+				if (form.getVenueHistories() == null || form.getVenueHistories().isEmpty()) {
+					loadHistory();
+				}
+				break;
+			case CHECKINS:
+				if (form.getCheckins() == null || form.getCheckins().isEmpty()) {
+					loadCheckins();
+				}
+				PrimeFaces.current().executeScript("PF('tabViewWidget').select(2)");
+				break;
+		}
 	}
 
 	public void loadResult() {
-		if(form.getView() == 0) {
+		if (form.getTabName().equals(TabName.VENUES)) {
 			form.setCategory(categoriesController.getCategoryId());
 			if (form.getCategory().equals("0000")) {
 				form.setCategory("");
 			}
 			Result<VenuesSearchResult> result = fsManager.draw3(mapForm.getCoordinates(), form.getQuery(), form.getCategory());
 			form.setVenues(Arrays.asList(result.getResult().getVenues()));
-			for(CompactVenue venue : form.getVenues()) {
+			for (CompactVenue venue : form.getVenues()) {
 				LatLng latLng = new LatLng(venue.getLocation().getLat(), venue.getLocation().getLng());
 				Marker marker = new Marker(latLng);
 				mapController.addMarker(marker);
@@ -77,7 +114,6 @@ public class MainController implements Serializable {
 	}
 
 	public void loadHistory(){
-		form.setView(1);
 		Result<VenueHistoryGroup> result = fsManager.venueHistory();
 		if(result != null) {
 			VenueHistoryGroup venueHistoryGroup = result.getResult();
@@ -85,30 +121,8 @@ public class MainController implements Serializable {
 		}
 	}
 
-	public void switchView(Integer view){
-		form.setView(view);
-	}
-
-	public void update(){
-		int view = form.getView();
-		switch(view){
-			case 0:
-				loadResult();
-				break;
-			case 1:
-				loadHistory();
-				break;
-			case 2:
-				//loadFromDb();
-				break;
-			case 3:
-				loadCheckins();
-				break;
-		}
-	}
-
 	public void loadCheckins(){
-		form.setView(3);
+		form.setTabName(TabName.CHECKINS);
 		loadMoreCheckins();
 	}
 

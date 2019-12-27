@@ -1,5 +1,6 @@
 package de.lengsfeld.anlz4sqr.form;
 
+import de.lengsfeld.anlz4sqr.TabName;
 import fi.foyt.foursquare.api.entities.Checkin;
 import fi.foyt.foursquare.api.entities.CompactVenue;
 import fi.foyt.foursquare.api.entities.VenueHistory;
@@ -20,6 +21,7 @@ public class MainForm implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private TabName tabName = TabName.VENUES;
 	private List<CompactVenue> venues;
 	private Integer numRows = 15;
 	private List<VenueHistory> venueHistories;
@@ -33,16 +35,24 @@ public class MainForm implements Serializable {
 	private Boolean checkinsWithComments = false;
 	private String selectedComment;
 	private String concatenatedComments;
-	private Integer view = 0;
 
 	private String query;
 	private String category;
 
-    public Boolean getCheckinsWithComments() {
-        return checkinsWithComments;
-    }
+	public void reset() {
+		tabName = TabName.VENUES;
+		query = "";
+		venues = new ArrayList<>();
+		checkins = new ArrayList<>();
+		numCheckins = 10;
+		numCheckinsLoaded = 0;
+	}
 
-    public void setCheckinsWithComments(Boolean checkinsWithComments) {
-        this.checkinsWithComments = checkinsWithComments;
-    }
+	public Boolean getCheckinsWithComments() {
+		return checkinsWithComments;
+	}
+
+	public void setCheckinsWithComments(Boolean checkinsWithComments) {
+		this.checkinsWithComments = checkinsWithComments;
+	}
 }
