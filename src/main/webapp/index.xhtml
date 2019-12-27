@@ -53,16 +53,26 @@
                     <p:dataTable id="historyTable" var="history" value="#{mainForm.venueHistories}"
                                  rendered="#{mainForm.tabName.name eq 'History'}"
                                  rowKey="#{venue.name}" paginator="true" rows="15">
-                        <p:column headerText="Checkins" sortBy="Checkins" filterBy="name">
+                        <f:facet name="header">
+                            <h:outputText value="History"/>
+                            <p:commandButton id="historyToggler" type="button" value="Columns"
+                                             style="float:right; width: 120px"
+                                             icon="pi pi-align-justify"/>
+                            <p:columnToggler trigger="historyToggler" datasource="historyTable"/>
+                        </f:facet>
+                        <p:column sortable="true" headerText="Checkins" sortBy="#{history.beenHere}"
+                                  filterBy="#{history.beenHere}">
                             #{history.beenHere}
                         </p:column>
-                        <p:column headerText="Name" sortBy="name" filterBy="name">
+                        <p:column sortable="true" headerText="Name" sortBy="#{history.venue.name}"
+                                  filterBy="#{history.venue.name}">
                             #{history.venue.name}
                         </p:column>
                         <p:column headerText="Address" sortBy="address" filterBy="address">
                             #{history.venue.location.address}
                         </p:column>
-                        <p:column headerText="City" sortBy="city" filterBy="city">
+                        <p:column sortable="true" headerText="City" sortBy="#{history.venue.location.city}"
+                                  filterBy="#{history.venue.location.city}">
                             #{history.venue.location.city}
                         </p:column>
                     </p:dataTable>
@@ -128,26 +138,27 @@
             <f:facet name="footer">
                 <p:commandButton value="Close" oncomplete="PF('venueDialogWidget').hide();"/>
             </f:facet>
-            <h:panelGrid id="display" columns="2" cellpadding="4" styleClass="ui-fluid">
-                <h:outputText value="Name:"/>
-                <h:outputText value="#{mainForm.selectedVenue.name}" id="name"/>
+            <p:panelGrid id="display" columns="2" columnClasses="ui-g-4, ui-g-8" layout="grid"
+                         styleClass="ui-fluid ui-noborder">
+                <p:outputLabel for="venueDialogName" value="Name:"/>
+                <h:outputText id="venueDialogName" value="#{mainForm.selectedVenue.name}"/>
 
-                <h:outputText value="Address:"/>
-                <h:outputText value="#{mainForm.selectedVenue.location.address}" id="address"/>
+                <p:outputLabel for="venueDialogAddress" value="Address:"/>
+                <h:outputText id="venueDialogAddress" value="#{mainForm.selectedVenue.location.address}"/>
 
-                <h:outputText value="Zip:"/>
-                <h:outputText value="#{mainForm.selectedVenue.location.postalCode}" id="postalCode"/>
+                <p:outputLabel for="venueDialogZip" value="Zip:"/>
+                <h:outputText id="venueDialogZip" value="#{mainForm.selectedVenue.location.postalCode}"/>
 
-                <h:outputText value="City:"/>
-                <h:outputText value="#{mainForm.selectedVenue.location.city}" id="city"/>
+                <p:outputLabel for="venueDialogCity" value="City:"/>
+                <h:outputText id="venueDialogCity" value="#{mainForm.selectedVenue.location.city}"/>
 
-                <h:outputText value="Id:"/>
-                <h:outputText value="#{mainForm.selectedVenue.id}"/>
+                <p:outputLabel for="venueDialogId" value="Id:"/>
+                <h:outputText id="venueDialogId" value="#{mainForm.selectedVenue.id}"/>
 
-                <p:outputLabel for="rating" value="Rating"/>
-                <h:outputText id="rating" value="#{mainForm.selectedVenue.rating}"/>
+                <p:outputLabel for="venueDialogRating" value="Rating"/>
+                <h:outputText id="venueDialogRating" value="#{mainForm.selectedVenue.rating}"/>
 
-            </h:panelGrid>
+            </p:panelGrid>
         </p:dialog>
         <p:dialog id="checkingDlg" header="Checkin Details" widgetVar="checkinDialogWidget"
                   resizable="false" closable="false" width="420" showEffect="explode"
@@ -155,11 +166,12 @@
             <f:facet name="footer">
                 <p:commandButton value="Close" oncomplete="PF('checkinDialogWidget').hide();"/>
             </f:facet>
-            <p:panelGrid id="checkinDlgPanel" columns="2" columnClasses="ui-g-4, ui-g-8" styleClass="ui-fluid"
+            <p:panelGrid id="checkinDlgPanel" columns="2" columnClasses="ui-g-4, ui-g-8"
+                         styleClass="ui-fluid ui-noborder"
                          layout="grid">
 
-                <h:outputText value="ID:"/>
-                <h:outputText value="#{mainForm.selectedCheckin.id}"/>
+                <p:outputLabel for="checkinDlgId" value="ID:"/>
+                <h:outputText id="checkinDlgId" value="#{mainForm.selectedCheckin.id}"/>
 
                 <p:outputLabel for="addressid" value="Address:"/>
                 <h:outputText id="addressid" value="#{mainForm.selectedCheckin.venue.location.address}"/>

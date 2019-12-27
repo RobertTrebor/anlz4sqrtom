@@ -87,6 +87,7 @@ public class MainController implements Serializable
 				if (form.getVenueHistories() == null || form.getVenueHistories().isEmpty()) {
 					loadHistory();
 				}
+				PrimeFaces.current().executeScript("PF('tabViewWidget').select(1)");
 				break;
 			case CHECKINS:
 				if (form.getCheckins() == null || form.getCheckins().isEmpty()) {
@@ -113,9 +114,10 @@ public class MainController implements Serializable
 		}
 	}
 
-	public void loadHistory(){
+	public void loadHistory() {
+		form.setTabName(TabName.HISTORY);
 		Result<VenueHistoryGroup> result = fsManager.venueHistory();
-		if(result != null) {
+		if (result != null) {
 			VenueHistoryGroup venueHistoryGroup = result.getResult();
 			form.setVenueHistories(Arrays.asList(venueHistoryGroup.getItems()));
 		}
