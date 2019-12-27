@@ -61,20 +61,19 @@ public class MainController implements Serializable
 
 	public void reset() {
 		form.reset();
-		update();
+		mapForm.reset();
 	}
 
 	public void onTabChange(TabChangeEvent event) {
 		Tab tab = event.getTab();
 		form.setTabName(TabName.fromString(tab.getTitle()));
-		update();
 	}
 
 	public void venueQueryChanged() {
 		form.setTabName(TabName.VENUES);
 		form.setVenues(null);
-		update();
 	}
+
 
 	public void update() {
 		switch (form.getTabName()) {
@@ -82,6 +81,7 @@ public class MainController implements Serializable
 				if (form.getVenues() == null || form.getVenues().isEmpty()) {
 					loadResult();
 				}
+				PrimeFaces.current().executeScript("PF('tabViewWidget').select(0)");
 				break;
 			case HISTORY:
 				if (form.getVenueHistories() == null || form.getVenueHistories().isEmpty()) {
@@ -92,6 +92,7 @@ public class MainController implements Serializable
 				if (form.getCheckins() == null || form.getCheckins().isEmpty()) {
 					loadCheckins();
 				}
+				PrimeFaces.current().executeScript("PF('tabViewWidget').select(2)");
 				break;
 		}
 	}

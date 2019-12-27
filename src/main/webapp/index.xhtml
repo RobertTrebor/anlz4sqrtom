@@ -13,7 +13,7 @@
         <f:event listener="#{mainController.onStart()}" type="preRenderView"/>
 
         <h:form id="foursquare">
-            <p:tabView id="tabView" style=".ui-tabs .ui-tabs-panel">
+            <p:tabView id="tabView" style=".ui-tabs .ui-tabs-panel" widgetVar="tabViewWidget">
                 <p:ajax event="tabChange" listener="#{mainController.onTabChange}" update="tabView"/>
                 <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
@@ -193,7 +193,8 @@
                     <p:gmap id="gmap" center="#{mapForm.coordinates}" zoom="15" type="HYBRID" widgetVar="mapWidget"
                             style="width:380px;height:300px" model="#{mapForm.model}">
                         <p:ajax event="stateChange" listener="#{mapController.onStateChange}" update="messages"/>
-                        <p:ajax event="pointSelect" listener="#{mapController.onPointSelect}" oncomplete="updateRC();"
+                        <p:ajax event="pointSelect" listener="#{mapController.onPointSelect}"
+                                oncomplete="fullUpdateRC();"
                                 update="messages coordinatesform"/>
                     </p:gmap>
                 </p:fieldset>
@@ -204,7 +205,7 @@
                     <p:tree id="tree" value="#{categoriesController.root}" var="node"
                             selectionMode="single" selection="#{categoriesController.selectedNode}">
                         <p:ajax event="select" listener="#{categoriesController.onNodeSelect}"
-                                oncomplete="updateRC();"/>
+                                oncomplete="fullUpdateRC();"/>
                         <p:treeNode id="treeNode">
                             <h:outputText value="#{node}" id="lblNode"/>
                         </p:treeNode>
@@ -224,6 +225,8 @@
         </p:ajaxStatus>
 
         <p:remoteCommand name="updateRC" actionListener="#{mainController.update()}" update="foursquare map"/>
+        <p:remoteCommand name="fullUpdateRC" actionListener="#{mainController.venueQueryChanged()}"
+                         oncomplete="updateRC();" update="coordinatesform"/>
 
     </ui:define>
 </ui:composition>

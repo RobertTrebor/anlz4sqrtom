@@ -47,13 +47,13 @@
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <p:commandLink actionListener="#{mainController.reset()}" styleClass="nav-link"
-                                           value="Reset" oncomplete="updateRC();"/>
+                                           value="Reset" update="@form" oncomplete="updateRC();"/>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarVenuesDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Venues</a>
                             <div class="dropdown-menu" aria-labelledby="navbarVenuesDropdown">
-                                <ul class="dropdown-item">
+                                <ul class="dropdown-item dropdown-toggle">
                                     <li class="dropdown-item">
                                         <p:outputLabel for="latitude" value="Latitude: " styleClass="dropdown-item"/>
                                         <p:inputText id="latitude" value="#{mapForm.latitude}">
@@ -74,6 +74,12 @@
                                             <p:ajax event="change" listener="#{mainController.venueQueryChanged}"
                                                     update="@this"/>
                                         </p:inputText>
+                                    </li>
+                                    <li class="dropdown-item">
+                                        <p:commandButton action="#{mainController.loadResult()}"
+                                                         value="Load Checkins" update="@parent"
+                                                         disabled="#{!mainController.isAuthenticated()}"
+                                                         oncomplete="updateRC();"/>
                                     </li>
                                 </ul>
                             </div>
