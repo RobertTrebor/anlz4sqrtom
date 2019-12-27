@@ -29,7 +29,7 @@
 
     <h:body>
         <h:form id="coordinatesform">
-            <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" style="color:blueviolet">Anlz4sqr</a>
                 <div class="navbar" id="navbar">
                     <ul class="navbar-nav">
@@ -39,7 +39,8 @@
                         </li>
                     </ul>
                 </div>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -52,32 +53,36 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarVenuesDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Venues</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarVenuesDropdown">
-                                <ul class="dropdown-item dropdown-toggle">
-                                    <li class="dropdown-item">
-                                        <p:outputLabel for="latitude" value="Latitude: " styleClass="dropdown-item"/>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarVenuesDropdown">
+                                <ul class="dropdown-item dropdown-toggle bg-dark">
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="latitude" value="Latitude: "
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputText id="latitude" value="#{mapForm.latitude}">
                                             <p:ajax event="change" listener="#{mainController.venueQueryChanged}"
                                                     update="@this"/>
                                         </p:inputText>
                                     </li>
-                                    <li class="dropdown-item">
-                                        <p:outputLabel for="longitude" value="Longitude: " styleClass="dropdown-item"/>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="longitude" value="Longitude: "
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputText id="longitude" value="#{mapForm.longitude}">
                                             <p:ajax event="change" listener="#{mainController.venueQueryChanged}"
                                                     update="@this"/>
                                         </p:inputText>
                                     </li>
-                                    <li class="dropdown-item">
-                                        <p:outputLabel for="query" value="Query: " styleClass="dropdown-item"/>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="query" value="Query: "
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputText id="query" value="#{mainForm.query}">
                                             <p:ajax event="change" listener="#{mainController.venueQueryChanged}"
                                                     update="@this"/>
                                         </p:inputText>
                                     </li>
-                                    <li class="dropdown-item">
+                                    <li class="dropdown-item bg-dark">
                                         <p:commandButton action="#{mainController.loadResult()}"
                                                          value="Load Checkins" update="@parent"
+                                                         styleClass="btn btn-success"
                                                          disabled="#{!mainController.isAuthenticated()}"
                                                          oncomplete="updateRC();"/>
                                     </li>
@@ -90,7 +95,7 @@
                             <div class="dropdown-menu" aria-labelledby="navbarHistoryDropdown">
                                 <ul class="dropdown-item">
                                     <li class="dropdown-item">
-                                        <p:panelGrid id="historyDropdown" columnClasses="ui-grid-col-7, ui-grid-col-5"
+                                        <p:panelGrid id="historyDropdown" columnClasses="ui-g-7 ui-g-5"
                                                      columns="2" layout="grid"
                                                      styleClass="ui-noborder ui-panelgrid-nopad">
                                             <p:outputLabel for="numLoadedHistory" value="History loaded:"/>
