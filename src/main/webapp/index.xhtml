@@ -46,10 +46,6 @@
                     </p:dataTable>
                 </p:tab>
                 <p:tab title="History" disabled="#{!mainController.isAuthenticated()}">
-                    <p:panelGrid>
-                        <p:commandButton action="#{mainController.loadHistory()}" value="History"
-                                         update="historyTable"/>
-                    </p:panelGrid>
                     <p:dataTable id="historyTable" var="history" value="#{mainForm.venueHistories}"
                                  rendered="#{mainForm.tabName.name eq 'History'}"
                                  rowKey="#{venue.name}" paginator="true" rows="15">
