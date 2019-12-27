@@ -41,6 +41,7 @@ public class MainForm implements Serializable {
 
 	public void reset() {
 		tabName = TabName.VENUES;
+		query = "";
 		checkins = new ArrayList<>();
 		numCheckins = 10;
 		numCheckinsLoaded = 0;
