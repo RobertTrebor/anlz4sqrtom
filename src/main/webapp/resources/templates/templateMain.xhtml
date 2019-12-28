@@ -81,7 +81,7 @@
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <p:commandButton action="#{mainController.loadResult()}"
-                                                         value="Load Checkins" update="@parent"
+                                                         value="Load Venues" update="@parent"
                                                          styleClass="btn btn-success"
                                                          disabled="#{!mainController.isAuthenticated()}"
                                                          oncomplete="updateRC();"/>
@@ -92,24 +92,27 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarHistoryDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">History</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarHistoryDropdown">
-                                <ul class="dropdown-item">
-                                    <li class="dropdown-item">
-                                        <p:panelGrid id="historyDropdown" columnClasses="ui-g-7 ui-g-5"
-                                                     columns="2" layout="grid"
-                                                     styleClass="ui-noborder ui-panelgrid-nopad">
-                                            <p:outputLabel for="numLoadedHistory" value="History loaded:"/>
-                                            <p:inputNumber id="numLoadedHistory" value="0000"
-                                                           decimalPlaces="0" size="5" disabled="true"/>
-                                            <p:outputLabel for="historyToLoad" value="Load:"/>
-                                            <p:inputNumber id="historyToLoad" value="0000"
-                                                           decimalPlaces="0" size="5"/>
-                                            <p:commandButton action="#{mainController.loadHistory()}"
-                                                             value="Load History"
-                                                             update="historyDropdown"
-                                                             disabled="#{!mainController.isAuthenticated()}"
-                                                             oncomplete="updateRC();"/>
-                                        </p:panelGrid>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarHistoryDropdown">
+                                <ul class="dropdown-item bg-dark">
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="numLoadedHistory" value="History loaded:"
+                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                        <p:inputNumber id="numLoadedHistory" value="0000"
+                                                       decimalPlaces="0" disabled="true"/>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="historyToLoad" value="Load:"
+                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                        <p:inputNumber id="historyToLoad" value="0000"
+                                                       decimalPlaces="0"/>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:commandButton action="#{mainController.loadHistory()}"
+                                                         value="Load History"
+                                                         update="@parent"
+                                                         styleClass="dropdown-item btn btn-success"
+                                                         disabled="#{!mainController.isAuthenticated()}"
+                                                         oncomplete="updateRC();"/>
                                     </li>
                                 </ul>
                             </div>
@@ -117,27 +120,35 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarCheckinsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Checkins</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarCheckinsDropdown">
-                                <ul class="dropdown-item">
-                                    <li class="dropdown-item">
-                                        <p:panelGrid id="checkinsDropdown" columnClasses="ui-grid-col-7, ui-grid-col-5"
-                                                     columns="2" layout="grid"
-                                                     styleClass="ui-noborder ui-panelgrid-nopad">
-                                            <p:outputLabel for="numLoaded" value="Checkins loaded:"/>
-                                            <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}"
-                                                           decimalPlaces="0" size="5" disabled="true"/>
-                                            <p:outputLabel for="numToLoad" value="Load:"/>
-                                            <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}"
-                                                           decimalPlaces="0" size="5"/>
+                            <div class="dropdown-menu bg-dark" aria-labelledby="navbarCheckinsDropdown">
+                                <ul class="dropdown-item bg-dark">
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="numLoaded" value="Checkins loaded:"
+                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                        <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}"
+                                                       decimalPlaces="0" disabled="true"/>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:outputLabel for="numToLoad" value="Load:"
+                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                        <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}"
+                                                       decimalPlaces="0"/>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <h:panelGroup styleClass="dropdown-item bg-dark">
+                                            <p:outputLabel for="commentsCheckbox" value="Commented Only"
+                                                           styleClass="bg-dark text-white"/>
                                             <p:selectBooleanCheckbox id="commentsCheckbox"
                                                                      value="#{mainForm.checkinsWithComments}"/>
-                                            <p:outputLabel for="commentsCheckbox" value="Commented Only"/>
-                                            <p:commandButton action="#{mainController.loadCheckins()}"
-                                                             value="Load Checkins"
-                                                             update="checkinsDropdown"
-                                                             disabled="#{!mainController.isAuthenticated()}"
-                                                             oncomplete="updateRC();"/>
-                                        </p:panelGrid>
+                                        </h:panelGroup>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <p:commandButton action="#{mainController.loadCheckins()}"
+                                                         value="Load Checkins"
+                                                         update="@parent"
+                                                         styleClass="dropdown-item btn btn-success"
+                                                         disabled="#{!mainController.isAuthenticated()}"
+                                                         oncomplete="updateRC();"/>
                                     </li>
                                 </ul>
                             </div>
