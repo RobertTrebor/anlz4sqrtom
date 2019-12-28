@@ -54,7 +54,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarVenuesDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Venues</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarVenuesDropdown">
-                                <ul class="dropdown-item dropdown-toggle bg-dark">
+                                <ul class="dropdown-item bg-dark">
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="latitude" value="Latitude: "
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
@@ -82,8 +82,7 @@
                                     <li class="dropdown-item bg-dark">
                                         <p:commandButton action="#{mainController.loadResult()}"
                                                          value="Load Venues" update="@parent"
-                                                         styleClass="btn btn-success"
-                                                         disabled="#{!mainController.isAuthenticated()}"
+                                                         styleClass="dropdown-item btn btn-success"
                                                          oncomplete="updateRC();"/>
                                     </li>
                                 </ul>
