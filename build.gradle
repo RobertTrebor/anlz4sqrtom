@@ -22,7 +22,7 @@ dependencies {
     compile 'org.primefaces:primefaces:7.0'
     compile 'com.github.scribejava:scribejava-apis:6.9.0'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-    compile 'org.liquibase:liquibase-core:3.5.3'
+    //compile 'org.liquibase:liquibase-core:3.5.3'
     compile 'org.jdom:jdom2:2.0.6'
     compile 'org.json:json:20190722'
     compile 'com.google.appengine:appengine-api-1.0-sdk:1.9.76'

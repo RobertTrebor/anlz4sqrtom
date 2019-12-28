@@ -80,9 +80,9 @@
                                         </p:inputText>
                                     </li>
                                     <li class="dropdown-item bg-dark">
-                                        <p:commandButton action="#{mainController.loadResult()}"
+                                        <p:commandButton action="#{mainController.venueQueryChanged}"
                                                          value="Load Venues" update="@parent"
-                                                         styleClass="dropdown-item btn btn-success"
+                                                         styleClass="dropdown-item btn-success bg-success"
                                                          oncomplete="updateRC();"/>
                                     </li>
                                 </ul>
@@ -95,13 +95,13 @@
                                 <ul class="dropdown-item bg-dark">
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="numLoadedHistory" value="History loaded:"
-                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputNumber id="numLoadedHistory" value="0000"
                                                        decimalPlaces="0" disabled="true"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="historyToLoad" value="Load:"
-                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputNumber id="historyToLoad" value="0000"
                                                        decimalPlaces="0"/>
                                     </li>
@@ -109,7 +109,7 @@
                                         <p:commandButton action="#{mainController.loadHistory()}"
                                                          value="Load History"
                                                          update="@parent"
-                                                         styleClass="dropdown-item btn btn-success"
+                                                         styleClass="dropdown-item btn-success bg-success"
                                                          disabled="#{!mainController.isAuthenticated()}"
                                                          oncomplete="updateRC();"/>
                                     </li>
@@ -123,20 +123,20 @@
                                 <ul class="dropdown-item bg-dark">
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="numLoaded" value="Checkins loaded:"
-                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputNumber id="numLoaded" value="#{mainForm.numCheckinsLoaded}"
                                                        decimalPlaces="0" disabled="true"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="numToLoad" value="Load:"
-                                                       styleClass="dropdown-item bg-dark text-white"/>
+                                                       styleClass="dropdown-item bg-dark text-white-50"/>
                                         <p:inputNumber id="numToLoad" value="#{mainForm.numCheckins}"
                                                        decimalPlaces="0"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <h:panelGroup styleClass="dropdown-item bg-dark">
                                             <p:outputLabel for="commentsCheckbox" value="Commented Only"
-                                                           styleClass="bg-dark text-white"/>
+                                                           styleClass="bg-dark text-white-50"/>
                                             <p:selectBooleanCheckbox id="commentsCheckbox"
                                                                      value="#{mainForm.checkinsWithComments}"/>
                                         </h:panelGroup>
@@ -145,7 +145,7 @@
                                         <p:commandButton action="#{mainController.loadCheckins()}"
                                                          value="Load Checkins"
                                                          update="@parent"
-                                                         styleClass="dropdown-item btn btn-success"
+                                                         styleClass="dropdown-item btn-success bg-success"
                                                          disabled="#{!mainController.isAuthenticated()}"
                                                          oncomplete="updateRC();"/>
                                     </li>
