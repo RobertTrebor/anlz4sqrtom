@@ -103,7 +103,7 @@ public class FSManager {
 	public Result<VenueHistoryGroup> venueHistory(Date historyFromDate, Date historyUntilDate) {
 		Result<VenueHistoryGroup> result = null;
 		try {
-			result = foursquareApi.usersVenueHistory("self", historyUntilDate.getTime(), historyFromDate.getTime());
+			result = foursquareApi.usersVenueHistory("self", historyUntilDate.getTime() / 1000, historyFromDate.getTime() / 1000);
 		} catch (FoursquareApiException e) {
 			logger.log(Level.ALL, e.getMessage());
 		}

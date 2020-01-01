@@ -116,7 +116,12 @@ public class MainController implements Serializable
 
 	public void loadHistory() {
 		form.setTabName(TabName.HISTORY);
-		Result<VenueHistoryGroup> result = fsManager.venueHistory(form.getHistoryFromDate(), form.getHistoryUntilDate());
+		Result<VenueHistoryGroup> result;
+		if (form.getLoadCompleteHistory()) {
+			result = fsManager.venueHistory();
+		} else {
+			result = fsManager.venueHistory(form.getHistoryFromDate(), form.getHistoryUntilDate());
+		}
 		if (result != null) {
 			VenueHistoryGroup venueHistoryGroup = result.getResult();
 			form.setVenueHistories(Arrays.asList(venueHistoryGroup.getItems()));

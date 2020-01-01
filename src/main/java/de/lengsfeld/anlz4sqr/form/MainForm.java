@@ -26,6 +26,7 @@ public class MainForm implements Serializable {
 	private TabName tabName = TabName.VENUES;
 	private List<CompactVenue> venues;
 	private Integer numRows = 15;
+	private Boolean loadCompleteHistory = false;
 	private Date historyFromDate;
 	private Date historyUntilDate;
 	private List<VenueHistory> venueHistories;
