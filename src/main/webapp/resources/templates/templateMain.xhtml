@@ -94,16 +94,22 @@
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarHistoryDropdown">
                                 <ul class="dropdown-item bg-dark">
                                     <li class="dropdown-item bg-dark">
-                                        <p:outputLabel for="numLoadedHistory" value="History loaded:"
+                                        <p:outputLabel for="historyFromDate" value="historyFromDate"
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
-                                        <p:inputNumber id="numLoadedHistory" value="0000"
-                                                       decimalPlaces="0" disabled="true"/>
+                                        <p:datePicker id="historyFromDate" value="#{mainForm.historyFromDate}"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
-                                        <p:outputLabel for="historyToLoad" value="Load:"
+                                        <p:outputLabel for="historyUntilDate" value="historyUntilDate"
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
-                                        <p:inputNumber id="historyToLoad" value="0000"
-                                                       decimalPlaces="0"/>
+                                        <p:datePicker id="historyUntilDate" value="#{mainForm.historyUntilDate}"/>
+                                    </li>
+                                    <li class="dropdown-item bg-dark">
+                                        <h:panelGroup styleClass="dropdown-item bg-dark">
+                                            <p:outputLabel for="allCheckbox" value="Load All"
+                                                           styleClass="bg-dark text-white-50"/>
+                                            <p:selectBooleanCheckbox id="allCheckbox"
+                                                                     value="#{mainForm.checkinsWithComments}"/>
+                                        </h:panelGroup>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <p:commandButton action="#{mainController.loadHistory()}"

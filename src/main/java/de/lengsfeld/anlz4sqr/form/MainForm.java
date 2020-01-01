@@ -10,7 +10,9 @@ import lombok.Setter;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,6 +26,8 @@ public class MainForm implements Serializable {
 	private TabName tabName = TabName.VENUES;
 	private List<CompactVenue> venues;
 	private Integer numRows = 15;
+	private Date historyFromDate;
+	private Date historyUntilDate;
 	private List<VenueHistory> venueHistories;
 	//private List<de.lengsfeld.anlz4sqr.entity.VenueHistory> venueHistoriesDb;
 	private List<Checkin> checkins = new ArrayList<>();
@@ -44,6 +48,8 @@ public class MainForm implements Serializable {
 		query = "";
 		venues = new ArrayList<>();
 		checkins = new ArrayList<>();
+		historyFromDate = Date.from(Instant.now());
+		historyUntilDate = Date.from(Instant.now());
 		numCheckins = 10;
 		numCheckinsLoaded = 0;
 	}
