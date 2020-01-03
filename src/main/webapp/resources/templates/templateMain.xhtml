@@ -88,11 +88,17 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" id="navbarHistoryDropdownId">
+                            <h:outputScript>
+                                $('#navbarHistoryDropdownItem').click(function (e) {
+                                    console.log('Juppiii');
+                                    e.stopPropagation();
+                                })
+                            </h:outputScript>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarHistoryDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">History</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarHistoryDropdown">
-                                <ul class="dropdown-item bg-dark">
+                                <ul class="dropdown-item bg-dark" id="navbarHistoryDropdownItem">
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="historyFromDate" value="historyFromDate"
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
@@ -123,6 +129,12 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
+                            <h:outputScript>
+                                $('.dropdown-ignore-clicks').click(function (e) {
+                                    console.log('checkbox');
+                                    e.stopPropagation();
+                                })
+                            </h:outputScript>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarCheckinsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Checkins</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarCheckinsDropdown">
@@ -144,6 +156,7 @@
                                             <p:outputLabel for="commentsCheckbox" value="Commented Only"
                                                            styleClass="bg-dark text-white-50"/>
                                             <p:selectBooleanCheckbox id="commentsCheckbox"
+                                                                     styleClass="dropdown-ignore-clicks"
                                                                      value="#{mainForm.checkinsWithComments}"/>
                                         </h:panelGroup>
                                     </li>
@@ -181,6 +194,46 @@
             $(document).ready(function () {
             jQuery.noConflict();
             });
+        </h:outputScript>-->
+
+        <!--
+            $(function () {
+                console.log('READY');
+            });
+
+            $(document).on('click', 'navbarHistoryDropdownId', '.dropdown-menu', function (event) {
+                console.log('stopProp');
+                event.stopPropagation();
+            });
+
+            function f() {
+                $("li").addClass("centered-text");
+                console.log('Class applied');
+            }
+
+            function g() {
+                $("li").removeClass("centered-text");
+                console.log('Class removed');
+            }
+
+            function a() {
+                $('#historyFromDate').addClass("centered-text");
+                console.log('historyaddclass');
+            }
+            function u() {
+                $('ui-datepicker').on('click'), function(e){
+                    e.stopPropagation();
+                    console.log('date');
+                }
+            }
+
+            $('#navbarHistoryDropdownItem').click(function (e) {
+                console.log('Juppiii');
+                e.stopPropagation();
+            })
+
+
+
         </h:outputScript>-->
         <!-- Placed at the end of the document so the pages load faster-->
         <!--<h:outputScript target="body" name="js/maps.js" />-->
