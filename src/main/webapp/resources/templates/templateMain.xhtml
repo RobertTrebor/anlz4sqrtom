@@ -89,12 +89,6 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown" id="navbarHistoryDropdownId">
-                            <h:outputScript>
-                                $('#navbarHistoryDropdownItem').click(function (e) {
-                                    console.log('Juppiii');
-                                    e.stopPropagation();
-                                })
-                            </h:outputScript>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarHistoryDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">History</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarHistoryDropdown">
@@ -102,18 +96,21 @@
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="historyFromDate" value="historyFromDate"
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
-                                        <p:datePicker id="historyFromDate" value="#{mainForm.historyFromDate}"/>
+                                        <p:datePicker id="historyFromDate" styleClass="dropdown-ignore-clicks"
+                                                      value="#{mainForm.historyFromDate}"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <p:outputLabel for="historyUntilDate" value="historyUntilDate"
                                                        styleClass="dropdown-item bg-dark text-white-50"/>
-                                        <p:datePicker id="historyUntilDate" value="#{mainForm.historyUntilDate}"/>
+                                        <p:datePicker id="historyUntilDate" styleClass="dropdown-ignore-clicks"
+                                                      value="#{mainForm.historyUntilDate}"/>
                                     </li>
                                     <li class="dropdown-item bg-dark">
                                         <h:panelGroup styleClass="dropdown-item bg-dark">
                                             <p:outputLabel for="allCheckbox" value="Load All"
                                                            styleClass="bg-dark text-white-50"/>
                                             <p:selectBooleanCheckbox id="allCheckbox"
+                                                                     styleClass="dropdown-ignore-clicks"
                                                                      value="#{mainForm.loadCompleteHistory}"/>
                                         </h:panelGroup>
                                     </li>
@@ -129,12 +126,7 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <h:outputScript>
-                                $('.dropdown-ignore-clicks').click(function (e) {
-                                    console.log('checkbox');
-                                    e.stopPropagation();
-                                })
-                            </h:outputScript>
+
                             <a class="nav-link dropdown-toggle" href="#" id="navbarCheckinsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Checkins</a>
                             <div class="dropdown-menu bg-dark" aria-labelledby="navbarCheckinsDropdown">
@@ -174,6 +166,12 @@
                     </ul>
                 </div>
             </nav>
+            <h:outputScript>
+                $('.dropdown-ignore-clicks').click(function (e) {
+                    console.log('checkbox');
+                    e.stopPropagation();
+                })
+            </h:outputScript>
         </h:form>
 
         <div class="ui-fluid" id="main">
