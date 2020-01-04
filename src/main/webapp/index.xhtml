@@ -18,19 +18,20 @@
                 <p:tab title="Venues" id="venuetable">
                     <style type="text/css">
                         .ui-datatable-header {
-                            height: 40px
+                            height: 40px;
+                            border-top: none;
+                            border-bottom: none;
                         }
                     </style>
                     <p:dataTable id="venues" var="venue" value="#{mainForm.venues}"
                                  rendered="#{mainForm.tabName.name eq 'Venues'}"
-                                 rowKey="#{venue.name}" paginator="true" rows="#{mainForm.numRows}"
+                                 rowKey="#{venue.name}" paginator="true" paginatorPosition="bottom"
+                                 rows="#{mainForm.numRows}"
                                  selection="#{mainForm.selectedVenue}" selectionMode="single">
                         <p:ajax event="rowSelect" update="display" oncomplete="PF('venueDialogWidget').show();"/>
                         <f:facet name="header">
-                            <h:outputText value="Venues"/>
-                            <p:commandButton id="venueToggler" type="button" value="Columns"
-                                             style="float:right; width: 120px"
-                                             icon="pi pi-align-justify"/>
+                            <p:commandButton id="venueToggler" value=" " styleClass="ui-icon-link" icon="ui-icon-link"
+                                             style="float:right; width: 26px; height: 18px; font-size: xx-small;"/>
                             <p:columnToggler trigger="venueToggler" datasource="venues"/>
                         </f:facet>
                         <p:column headerText="Name" sortBy="name" filterBy="name" id="titlename">

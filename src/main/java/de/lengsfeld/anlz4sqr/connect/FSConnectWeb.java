@@ -55,6 +55,7 @@ public class FSConnectWeb implements FSConnector, Serializable {
 	}
 
 	private String performAuthorizeToken(String code) {
+		System.out.println("Trading the Authorization Code: " + code + " for an Access Token...");
 		final OAuth2AccessToken accessToken;
 		String token = "";
 
