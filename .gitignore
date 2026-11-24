@@ -1,9 +1,7 @@
-bin
-.gradle
-.project
-build
-target
+node_modules
+.next
+out
 .env
-.settings
-.classpath
-.gradletasknamecache.vscode
+.env.local
+*.tsbuildinfo
+next-env.d.ts
